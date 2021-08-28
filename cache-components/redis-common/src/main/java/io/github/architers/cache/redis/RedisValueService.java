@@ -1,4 +1,4 @@
-package com.architecture.redis.support.cache;
+package io.github.architers.cache.redis;
 
 import com.architecture.context.cache.CacheConstants;
 import com.architecture.utils.JsonUtils;

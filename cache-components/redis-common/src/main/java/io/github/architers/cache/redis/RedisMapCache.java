@@ -1,9 +1,12 @@
-package com.architecture.redis.support.cache;
+package io.github.architers.cache.redis;
 
 import com.architecture.utils.JsonUtils;
 import org.redisson.api.RedissonClient;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
