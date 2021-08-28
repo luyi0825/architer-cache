@@ -1,7 +1,7 @@
 package com.architectrue.lock.zk;
 
 
-import com.architecture.context.cache.lock.LockService;
+import io.github.architers.cache.lock.LockService;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;

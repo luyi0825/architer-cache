@@ -1,8 +1,9 @@
 package io.github.architers.cache.lock;
 
 
-import com.architer.context.expression.ExpressionParser;
-import com.architer.context.expression.ExpressionMetadata;
+
+import io.github.architers.cache.expression.ExpressionMetadata;
+import io.github.architers.cache.expression.ExpressionParser;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

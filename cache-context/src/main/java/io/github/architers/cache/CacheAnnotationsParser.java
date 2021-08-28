@@ -1,12 +1,10 @@
 package io.github.architers.cache;
 
-import com.architer.cache.context.annotation.*;
+
 import io.github.architers.cache.annotation.*;
 import io.github.architers.cache.lock.LockType;
-import com.architer.cache.context.operation.*;
 import io.github.architers.cache.lock.Locked;
-import io.github.architers.cache.operation.*;
-import org.apache.commons.lang3.ArrayUtils;
+import io.github.architers.cache.operation.*;;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;
@@ -104,7 +102,7 @@ public class CacheAnnotationsParser {
 
     private void parseCacheablesAnnotation(Cacheables cacheables, Collection<BaseCacheOperation> ops) {
         Cacheable[] ables = cacheables.value();
-        if (ArrayUtils.isNotEmpty(ables)) {
+        if (ables != null) {
             for (Cacheable cacheable : ables) {
                 parseCacheableAnnotation(cacheable, ops);
             }
@@ -113,7 +111,7 @@ public class CacheAnnotationsParser {
 
     private void parseDeletesCacheAnnotation(DeleteCaches deleteCaches, Collection<BaseCacheOperation> ops) {
         DeleteCache[] deletes = deleteCaches.value();
-        if (ArrayUtils.isNotEmpty(deletes)) {
+        if (deletes != null) {
             for (DeleteCache deleteCache : deletes) {
                 parseDeleteCacheAnnotation(deleteCache, ops);
             }
@@ -122,7 +120,7 @@ public class CacheAnnotationsParser {
 
     private void parsePutCachesAnnotation(PutCaches putCaches, Collection<BaseCacheOperation> ops) {
         PutCache[] puts = putCaches.value();
-        if (ArrayUtils.isNotEmpty(puts)) {
+        if (puts != null) {
             for (PutCache put : puts) {
                 parsePutCacheAnnotation(put, ops);
             }
@@ -134,20 +132,20 @@ public class CacheAnnotationsParser {
      */
     private void parseCachingAnnotation(Caching caching, Collection<BaseCacheOperation> ops) {
         Cacheable[] cacheables = caching.cacheable();
-        if (ArrayUtils.isNotEmpty(cacheables)) {
+        if (cacheables != null) {
             for (Cacheable cacheable : cacheables) {
                 this.parseCacheableAnnotation(cacheable, ops);
             }
         }
         PutCache[] putCaches = caching.put();
-        if (ArrayUtils.isNotEmpty(putCaches)) {
+        if (putCaches != null) {
             for (PutCache putCache : putCaches) {
                 this.parsePutCacheAnnotation(putCache, ops);
             }
         }
 
         DeleteCache[] deleteCaches = caching.delete();
-        if (ArrayUtils.isNotEmpty(deleteCaches)) {
+        if (deleteCaches != null) {
             for (DeleteCache deleteCache : deleteCaches) {
                 this.parseDeleteCacheAnnotation(deleteCache, ops);
             }
@@ -217,7 +215,7 @@ public class CacheAnnotationsParser {
         if (locked != null) {
             return locked;
         }
-        Set<Annotation> annotations = AnnotatedElementUtils.getAllMergedAnnotations(annotatedElement, Set.of(Locked.class));
+        Set<Annotation> annotations = AnnotatedElementUtils.getAllMergedAnnotations(annotatedElement, Collections.singleton(Locked.class));
         for (Annotation annotation : annotations) {
             if (annotation instanceof Locked) {
                 lockedCache.put(annotatedElement, (Locked) annotation);

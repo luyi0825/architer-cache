@@ -1,8 +1,9 @@
 
-package io.github.architers.redisson;
+package io.github.architers.cache.redisson;
 
 
-import com.architecture.context.cache.lock.LockService;
+import io.github.architers.cache.lock.LockService;
+import io.github.architers.cache.redis.RedisValueService;
 import io.github.architers.cache.redisson.support.RedisCacheManagerImpl;
 import io.github.architers.cache.redisson.support.RedisLockServiceImpl;
 import org.redisson.Redisson;
@@ -27,13 +28,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author luyi
  */
 @Configuration()
-@ComponentScan("com.architecture.redis")
-@EnableConfigurationProperties(RedisProperties.class)
+@ComponentScan("io.github.architers.cache.redisson")
+@EnableConfigurationProperties(RedissonProperties.class)
 public class RedissonConfiguration {
 
     @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingBean
-    public RedissonClient redissonClient(RedisProperties redisProperties) {
+    public RedissonClient redissonClient(RedissonProperties redisProperties) {
         Config config;
         if (redisProperties != null && redisProperties.getConfig() != null) {
             config = redisProperties.getConfig();

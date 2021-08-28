@@ -6,6 +6,6 @@ package io.github.architers.cache.redis;
  * @author luyi
  * @version 1.0.0
  */
-public class RedisContants {
+public class RedisConstants {
     public final static String SPLIT = ":";
 }

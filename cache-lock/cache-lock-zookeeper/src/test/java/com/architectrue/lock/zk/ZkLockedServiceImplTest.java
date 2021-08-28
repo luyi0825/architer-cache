@@ -1,7 +1,7 @@
 package com.architectrue.lock.zk;
 
 
-import com.architecture.context.cache.lock.LockService;
+import io.github.architers.cache.lock.LockService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest
 class ZkLockedServiceImplTest {

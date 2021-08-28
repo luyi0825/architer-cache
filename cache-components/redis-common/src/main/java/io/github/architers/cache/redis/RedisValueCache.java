@@ -1,7 +1,6 @@
 package io.github.architers.cache.redis;
 
 
-import com.architecture.context.exception.ServiceException;
 
 import java.util.Collection;
 import java.util.List;
@@ -75,7 +74,7 @@ public class RedisValueCache extends RedisCache {
 
     @Override
     public Map<Object, Object> getAll() {
-        throw new ServiceException("不支持的操作");
+        throw new RuntimeException("不支持的操作");
     }
 
     @Override

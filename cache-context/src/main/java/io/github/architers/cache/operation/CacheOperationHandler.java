@@ -3,14 +3,14 @@ package io.github.architers.cache.operation;
 
 import io.github.architers.cache.Cache;
 import io.github.architers.cache.CacheMode;
+import io.github.architers.cache.expression.ExpressionMetadata;
+import io.github.architers.cache.expression.ExpressionParser;
 import io.github.architers.cache.lock.LockExecute;
 import io.github.architers.cache.proxy.MethodReturnValueFunction;
-import com.architer.context.expression.ExpressionParser;
-import com.architer.context.expression.ExpressionMetadata;
 import io.github.architers.cache.CacheManager;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
+import org.springframework.util.StringUtils;
 
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -91,10 +91,10 @@ public abstract class CacheOperationHandler implements Ordered {
      */
     protected boolean canHandler(BaseCacheOperation operation, ExpressionMetadata expressionMetadata, boolean excludeResult) {
         String condition = operation.getCondition(), unless = operation.getUnless();
-        if (StringUtils.isBlank(condition) && StringUtils.isBlank(unless)) {
+        if (!StringUtils.hasText(condition) && !StringUtils.hasText(unless)) {
             return true;
         }
-        if (StringUtils.isNotEmpty(condition)) {
+        if (StringUtils.hasText(condition)) {
             if (excludeResult && isContainsResult(condition)) {
                 return true;
             }
@@ -105,7 +105,7 @@ public abstract class CacheOperationHandler implements Ordered {
             return (boolean) isCondition;
         }
 
-        if (StringUtils.isNotEmpty(unless)) {
+        if (StringUtils.hasText(unless)) {
             if (excludeResult && isContainsResult(unless)) {
                 return true;
             }

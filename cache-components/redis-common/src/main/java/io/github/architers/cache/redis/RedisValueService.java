@@ -1,7 +1,8 @@
 package io.github.architers.cache.redis;
 
-import com.architecture.context.cache.CacheConstants;
-import com.architecture.utils.JsonUtils;
+
+
+import io.github.architers.cache.CacheConstants;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.CollectionUtils;

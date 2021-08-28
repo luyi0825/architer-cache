@@ -1,7 +1,7 @@
 package io.github.architers.cache.lock;
 
-import com.architer.context.exception.ServiceException;
-import com.architer.context.expression.ExpressionMetadata;
+
+import io.github.architers.cache.expression.ExpressionMetadata;
 
 import java.util.concurrent.locks.Lock;
 
@@ -30,7 +30,7 @@ public class LockExecute {
                 }
             }
             //没有获取到锁
-            throw new ServiceException("没有获取到锁");
+            throw new RuntimeException("没有获取到锁");
         } else {
             return function.execute();
         }

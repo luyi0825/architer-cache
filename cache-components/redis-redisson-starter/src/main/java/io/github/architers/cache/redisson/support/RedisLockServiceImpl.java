@@ -1,6 +1,7 @@
 package io.github.architers.cache.redisson.support;
 
-import com.architecture.context.cache.lock.LockService;
+import io.github.architers.cache.lock.LockService;
+import io.github.architers.cache.redis.RedisConstants;
 import org.redisson.api.RedissonClient;
 
 import java.util.concurrent.TimeUnit;
@@ -29,7 +30,7 @@ public class RedisLockServiceImpl implements LockService {
 
     @Override
     public String getLockSplit() {
-        return RedissonConstants.SPLIT;
+        return RedisConstants.SPLIT;
     }
 
     @Override

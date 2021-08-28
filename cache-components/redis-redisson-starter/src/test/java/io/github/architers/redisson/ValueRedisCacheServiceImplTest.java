@@ -1,7 +1,8 @@
-package com.architecture.redis;
+package io.github.architers.redisson;
 
 
-import com.architecture.redis.support.cache.RedisValueService;
+import io.github.architers.cache.redis.RedisConstants;
+import io.github.architers.cache.redis.RedisValueService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.architecture.redis;
+package io.github.architers.redisson;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

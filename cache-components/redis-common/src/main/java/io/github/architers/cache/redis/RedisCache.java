@@ -1,7 +1,8 @@
 package io.github.architers.cache.redis;
 
-import com.architecture.context.cache.Cache;
-import io.github.architers.redisson.RedissonConstants;
+
+
+import io.github.architers.cache.Cache;
 import org.springframework.util.Assert;
 
 /**
@@ -17,7 +18,7 @@ public abstract class RedisCache implements Cache {
     }
 
     protected String getCacheKey(String key) {
-        return String.join(RedissonConstants.SPLIT, cacheName, key);
+        return String.join(RedisConstants.SPLIT, cacheName, key);
     }
 
     @Override
