@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "customize.redis",
+      "type": "com.architecture.redis.RedisProperties",
+      "sourceType": "com.architecture.redis.RedisProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "customize.redis.config",
+      "type": "org.redisson.config.Config",
+      "description": "配置",
+      "sourceType": "com.architecture.redis.RedisProperties"
+    }
+  ],
+  "hints": []
+}
