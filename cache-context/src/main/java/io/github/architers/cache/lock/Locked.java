@@ -1,6 +1,10 @@
 package io.github.architers.cache.lock;
 
 
+import io.github.architers.cache.lock.FailStrategy;
+import io.github.architers.cache.lock.LockEnum;
+import io.github.architers.cache.lock.LockType;
+
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 

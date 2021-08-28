@@ -2,41 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
+        <artifactId>cache-components</artifactId>
         <groupId>io.github.architers.cache</groupId>
-        <artifactId>cache-parent</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>cache-context</artifactId>
-    <name>cache-context</name>
-    <description>cache-context</description>
+    <artifactId>redis-spring-data-starter</artifactId>
+    <name>redis-spring-data-starter</name>
+    <description>redis-spring-data-starter</description>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.9.7</version>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.9.7</version>
-            <scope>provided</scope>
+            <groupId>io.github.architers.cache</groupId>
+            <artifactId>redis-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>

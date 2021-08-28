@@ -6,6 +6,7 @@ import java.lang.annotation.*;
 
 /**
  * @author luyi
+ * @version 1.0.0
  * 支持多个Cacheable注解
  */
 @Target({ElementType.TYPE, ElementType.METHOD})

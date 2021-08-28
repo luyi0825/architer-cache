@@ -1,16 +1,17 @@
+
 package io.github.architers.cache.annotation;
 
 
 import io.github.architers.cache.CacheMode;
-import io.github.architers.cache.lock.Locked;
 import io.github.architers.cache.lock.LockEnum;
+import io.github.architers.cache.lock.Locked;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 
 /**
- * 功能：缓存数据，缓存中有的时候，就从缓存中取值，没有就将换回结果放入缓存中
+ * 功能：缓存数据，缓存中有的时候，就从缓存中取值，没有就将返回结果放入缓存中并返回
  * ------------------------------------缓存的中key规则--------------------------
  * <br/>
  * 1.所有的时间单位都是秒
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * <li>缓存过期时间：expireTime加上randomTime范围内随机生成的时间</li>
  *
  * @author luyi
+ * @version 1.0.0
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

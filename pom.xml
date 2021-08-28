@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.architers</groupId>
+    <groupId>io.github.architers.cache</groupId>
     <artifactId>cache-parent</artifactId>
     <version>1.0.0</version>
     <name>cache-parent</name>
@@ -10,7 +10,7 @@
 
     <modules>
         <module>cache-context</module>
-        <module>cache-componts</module>
+        <module>cache-components</module>
         <module>cache-lock</module>
     </modules>
 
