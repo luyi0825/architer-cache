@@ -3,8 +3,9 @@ package io.github.architers.cache.redisson;
 
 
 import io.github.architers.cache.lock.LockService;
-import io.github.architers.cache.redis.RedisValueService;
-import io.github.architers.cache.redisson.support.RedisCacheManagerImpl;
+import io.github.architers.cache.redis.RedisMapValueService;
+import io.github.architers.cache.redis.RedisSimpleValueService;
+import io.github.architers.cache.redis.RedisCacheManager;
 import io.github.architers.cache.redisson.support.RedisLockServiceImpl;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -23,11 +24,11 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * Redis配置
+ * redisson配置类
  *
  * @author luyi
  */
-@Configuration()
+@Configuration
 @ComponentScan("io.github.architers.cache.redisson")
 @EnableConfigurationProperties(RedissonProperties.class)
 public class RedissonConfiguration {
@@ -66,25 +67,23 @@ public class RedissonConfiguration {
         return redisTemplate;
     }
 
-
-//    @Bean
-//    public RedisCacheManager redisCacheManager(RedisTemplate<String, Object> redisTemplate) {
-//        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(Objects.requireNonNull(redisTemplate.getConnectionFactory()));
-//        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-//                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisTemplate.getValueSerializer()));
-//        return new RedisCacheManager(redisCacheWriter, redisCacheConfiguration);
-//    }
-
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public RedisValueService redisValueService(RedisTemplate<String, Object> redisTemplate) {
-        return new RedisValueService(redisTemplate);
+    public RedisSimpleValueService redisValueService(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisSimpleValueService(redisTemplate);
     }
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public RedisCacheManagerImpl redisCacheManager(RedisValueService redisValueService, RedissonClient redissonClient) {
-        return new RedisCacheManagerImpl(redissonClient, redisValueService);
+    public RedisMapValueService redisMapValueService(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisMapValueService(redisTemplate);
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public RedisCacheManager redisCacheManager(RedisSimpleValueService redisSimpleValueService,
+                                               RedisMapValueService redisMapValueService) {
+        return new RedisCacheManager(redisSimpleValueService, redisMapValueService);
     }
 
 
