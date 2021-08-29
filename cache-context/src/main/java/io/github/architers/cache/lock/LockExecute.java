@@ -7,7 +7,10 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * @author luyi
+ * @version 1.0.0
  * 锁的执行器
+ * <li>获取锁后执行后边的逻辑</li>
+ * <li>没有获取到锁就按照失败策略执行流程</li>
  */
 public class LockExecute {
 
@@ -19,6 +22,7 @@ public class LockExecute {
 
     public Object execute(Locked locked, ExpressionMetadata expressionMetadata, LockExecuteFunction function) throws Throwable {
         if (locked != null) {
+            //从锁的工厂中获取锁
             Lock lock = lockFactory.get(locked, expressionMetadata);
             if (LockService.FAIL_LOCK != lock) {
                 try {
