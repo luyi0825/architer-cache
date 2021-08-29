@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
  * redisTemplate的opsForValue的工具类
  * <li>注意:这个和ValueRedisCache的区别是:本类key会直接作为缓存的key,而ValueRedisCache还会加上cacheName</li>
  */
-public class RedisValueService {
+public class RedisSimpleValueService {
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final ValueOperations<String, Object> valueOperations;
 
-    public RedisValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisSimpleValueService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.valueOperations = redisTemplate.opsForValue();
     }

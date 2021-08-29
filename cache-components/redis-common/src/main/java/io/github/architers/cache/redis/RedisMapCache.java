@@ -1,75 +1,66 @@
 package io.github.architers.cache.redis;
 
 
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * Redis工具类--处理字符串类型
- * <p>
- * 注意，过期的时间单位都是秒
+ * map缓存类
  *
  * @author luyi
- * @date 2020-12-24
+ * @version 1.0.0
  */
-public class RedisValueCache extends RedisCache {
+public class RedisMapCache extends RedisCache {
+
+    private final RedisMapValueService mapValueService;
 
 
-    private final RedisValueService valueService;
-
-
-    public RedisValueCache(String cacheName, RedisValueService redisValueService) {
+    public RedisMapCache(String cacheName, RedisMapValueService mapValueService) {
         super(cacheName);
-        this.valueService = redisValueService;
+        this.mapValueService = mapValueService;
     }
 
 
     @Override
     public void set(String key, Object value) {
-        valueService.set(getCacheKey(key), value);
+        mapValueService.set(cacheName, key, value);
     }
-
 
     @Override
     public void set(String key, Object value, long expire, TimeUnit timeUnit) {
-        valueService.set(getCacheKey(key), value, expire, timeUnit);
+        mapValueService.set(cacheName, key, value, expire, timeUnit);
     }
 
     @Override
     public boolean setIfAbsent(String key, Object value) {
-        return valueService.setIfAbsent(getCacheKey(key), value);
+        return mapValueService.setIfAbsent(cacheName, key, value);
     }
 
     @Override
     public Object get(String key) {
-        return valueService.get(getCacheKey(key));
+        return mapValueService.get(cacheName, key);
     }
 
     @Override
     public List<Object> multiGet(Set<String> keys) {
         keys = keys.stream().map(this::getCacheKey).collect(Collectors.toSet());
-        return valueService.multiGet(keys);
+        return mapValueService.multiGet(cacheName, keys);
     }
 
     @Override
     public <T> T get(String key, Class<T> clazz) {
-        return valueService.get(getCacheKey(key), clazz);
+        return mapValueService.get(cacheName, key, clazz);
     }
 
     @Override
     public boolean delete(String key) {
-        return valueService.delete(getCacheKey(key));
+        return mapValueService.delete(cacheName, Collections.singleton(key)) > 0;
     }
 
     @Override
     public long multiDelete(Collection<String> keys) {
-        keys = keys.stream().map(this::getCacheKey).collect(Collectors.toList());
-        return valueService.multiDelete(keys);
+        return mapValueService.delete(cacheName, keys);
     }
 
     @Override
@@ -85,13 +76,13 @@ public class RedisValueCache extends RedisCache {
 
     @Override
     public void set(Map<String, Object> map) {
-        valueService.set(map);
+        mapValueService.set(cacheName,map);
     }
 
 
     @Override
     public boolean setIfAbsent(String key, Object value, long expire, TimeUnit timeUnit) {
-        return false;
+        return mapValueService.setIfAbsent(cacheName,key,value,expire,timeUnit);
     }
 
     @Override
