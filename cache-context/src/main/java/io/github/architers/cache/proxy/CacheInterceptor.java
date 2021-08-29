@@ -7,12 +7,13 @@ import io.github.architers.cache.expression.ExpressionMetadata;
 import io.github.architers.cache.expression.ExpressionParser;
 import io.github.architers.cache.lock.LockExecute;
 import io.github.architers.cache.lock.Locked;
-import io.github.architers.cache.model.InvalidCache;
+import io.github.architers.cache.model.NullValue;
 import io.github.architers.cache.operation.BaseCacheOperation;
 import io.github.architers.cache.operation.CacheOperationHandler;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
@@ -25,7 +26,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author luyi
- * 缓存拦截器
+ * @version 1.0.0
+ * 缓存拦截器：解析缓存、缓存锁相关的注解，进行相关的处理
  */
 public class CacheInterceptor implements MethodInterceptor {
 
@@ -33,12 +35,11 @@ public class CacheInterceptor implements MethodInterceptor {
 
     private List<CacheOperationHandler> cacheOperationHandlers;
 
-    @Autowired
     private LockExecute lockExecute;
 
     @Override
     @Nullable
-    public Object invoke(final MethodInvocation invocation) throws Throwable {
+    public Object invoke(@NonNull final MethodInvocation invocation) throws Throwable {
         /*
          *构建表达式的元数据:expressionMetadata
          *1.由于对于同一个线程的ExpressionEvaluationContext一样，可能存在多个注解，再次构建，减少对象的创建
@@ -55,7 +56,7 @@ public class CacheInterceptor implements MethodInterceptor {
                 }
                 Object returnValue = execute(invocation, baseCacheOperations, expressionMetadata);
                 //已经调用了方法，缓存中放的空值
-                if (returnValue instanceof InvalidCache) {
+                if (returnValue instanceof NullValue) {
                     return null;
                 }
                 //获取到返回值
@@ -83,7 +84,7 @@ public class CacheInterceptor implements MethodInterceptor {
                     if (returnValue.get() == null) {
                         Object value = invocation.proceed();
                         if (value == null) {
-                            value = InvalidCache.INVALID_CACHE;
+                            value = NullValue.INVALID_CACHE;
                         }
                         setValue(value);
                     }
@@ -94,10 +95,10 @@ public class CacheInterceptor implements MethodInterceptor {
             @Override
             public void setValue(Object value) {
                 synchronized (this) {
-                    if (value != null && !(value instanceof InvalidCache)) {
+                    if (value != null && !(value instanceof NullValue)) {
                         expressionMetadata.getEvaluationContext().setVariable("result", value);
                     }
-                    if (value != null) {
+                    if (value != null && returnValue.get() == null) {
                         returnValue.set(value);
                     }
                 }
@@ -142,5 +143,10 @@ public class CacheInterceptor implements MethodInterceptor {
 
     public void setCacheOperationHandlers(List<CacheOperationHandler> cacheOperationHandlers) {
         this.cacheOperationHandlers = cacheOperationHandlers;
+    }
+
+    @Autowired(required = false)
+    public void setLockExecute(LockExecute lockExecute) {
+        this.lockExecute = lockExecute;
     }
 }
