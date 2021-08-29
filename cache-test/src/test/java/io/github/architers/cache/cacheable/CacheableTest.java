@@ -15,6 +15,8 @@ import java.util.concurrent.Executors;
 
 /**
  * @author luyi
+ * 用于测试@Cacheable注解
+ * @version 1.0.0
  */
 @SpringBootTest
 public class CacheableTest {
@@ -38,13 +40,14 @@ public class CacheableTest {
 
     /**
      * 测试两个注解
+     * <li>需要测试是否造成多次查询</li>
      */
     @Test
     public void testTwoCacheable() {
         String userId = UUID.randomUUID().toString();
         for (int i = 0; i < 5; i++) {
             //删除一个，再获取
-            cacheManager.getSimpleCache("twoCacheable").delete(userId);
+            cacheManager.getSimpleCache("cacheableService_twoCacheable_key2").delete(userId);
             UserInfo userInfo = cacheableService.twoCacheable(userId);
             Assertions.assertNotNull(userInfo);
         }
