@@ -46,6 +46,10 @@ public abstract class BaseCacheOperation implements Operation {
     private String unless;
 
     private CacheMode cacheMode;
+    /**
+     * 缓存管理器
+     */
+    private String cacheManager;
 
 
 }

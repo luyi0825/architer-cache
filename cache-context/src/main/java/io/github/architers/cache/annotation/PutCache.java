@@ -75,4 +75,11 @@ public @interface PutCache {
      * 缓存模式
      */
     CacheMode cacheMode() default CacheMode.SIMPLE;
+
+    /**
+     * 缓存管理器类型
+     *
+     * @see Cacheable#cacheManager()
+     */
+    String cacheManager() default "";
 }

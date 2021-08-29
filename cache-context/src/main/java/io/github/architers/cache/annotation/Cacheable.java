@@ -85,4 +85,9 @@ public @interface Cacheable {
      */
     CacheMode cacheMode() default CacheMode.SIMPLE;
 
+    /**
+     * 缓存管理器类型，对应spring容器中bean的名称
+     */
+    String cacheManager() default "";
+
 }
