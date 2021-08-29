@@ -3,7 +3,7 @@ package io.github.architers.cache.operation;
 
 import io.github.architers.cache.Cache;
 import io.github.architers.cache.expression.ExpressionMetadata;
-import io.github.architers.cache.model.InvalidCache;
+import io.github.architers.cache.model.NullValue;
 import io.github.architers.cache.proxy.MethodReturnValueFunction;
 import io.github.architers.cache.utils.CacheUtils;
 
@@ -12,8 +12,10 @@ import java.util.*;
 
 /**
  * CacheableOperation 对应的处理类
+ * 当缓存中没有值的时候，查询数据库，并将返回值放入缓存
  *
  * @author luyi
+ * @version 1.0.0
  */
 public class CacheableOperationHandler extends CacheOperationHandler {
 
@@ -49,12 +51,19 @@ public class CacheableOperationHandler extends CacheOperationHandler {
                 return null;
             });
         } else {
+            //设置返回值，防止重复调用
             methodReturnValueFunction.setValue(cacheValue);
         }
     }
 
+    /**
+     * 判断是否是空值
+     *
+     * @param value 缓存值
+     * @return true表示为空值
+     */
     private boolean isNullValue(Object value) {
-        return value == null || value instanceof InvalidCache;
+        return value == null || value instanceof NullValue;
     }
 
     @Override
