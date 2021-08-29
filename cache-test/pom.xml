@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.architers.cache</groupId>
+        <version>1.0.0</version>
+        <artifactId>cache-parent</artifactId>
+    </parent>
+    <artifactId>cache-test</artifactId>
+    <groupId>io.github.architers.cache</groupId>
+    <name>zzz-test-cache</name>
+    <description>测试缓存</description>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <dependencies>
+
+        <dependency>
+            <groupId>io.github.architers.cache</groupId>
+            <artifactId>cache-context</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.architers.cache</groupId>
+            <artifactId>redis-redisson-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
+    </dependencies>
+
+
+</project>
