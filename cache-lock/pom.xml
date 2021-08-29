@@ -8,7 +8,6 @@
         <artifactId>cache-parent</artifactId>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.architers.cache</groupId>
     <artifactId>cache-lock</artifactId>
     <version>1.0.0</version>
     <name>cache-lock</name>
