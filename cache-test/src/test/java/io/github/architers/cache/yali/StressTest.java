@@ -1,6 +1,7 @@
 package io.github.architers.cache.yali;
 
 
+import io.github.architers.cache.TestModel;
 import io.github.architers.cache.UserInfo;
 import io.github.architers.cache.redis.JsonUtils;
 import io.github.architers.cache.redis.RedisConstants;
