@@ -12,6 +12,7 @@
         <module>cache-context</module>
         <module>cache-components</module>
         <module>cache-lock</module>
+        <module>cache-test</module>
     </modules>
 
     <properties>
