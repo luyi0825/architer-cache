@@ -24,14 +24,14 @@ public interface Cache {
      * @param key   缓存的key
      * @param value 缓存的值
      */
-    void set(String key, Object value);
+    void set(Object key, Object value);
 
     /**
      * 批量设置，设置的值不会过期
      *
      * @param map 缓存数据，key为缓存key,value为缓存值
      */
-    void set(Map<String, Object> map);
+    void set(Map<Object, Object> map);
 
     /**
      * 描述:向缓存中存放值，并设置过期时间
@@ -41,7 +41,7 @@ public interface Cache {
      * @param key      缓存的key
      * @param value    缓存的值
      */
-    void set(String key, Object value, long expire, TimeUnit timeUnit);
+    void set(Object key, Object value, long expire, TimeUnit timeUnit);
 
 
     /**
@@ -51,7 +51,7 @@ public interface Cache {
      * @param value 缓存的值
      * @return true为设置成功
      */
-    boolean setIfAbsent(String key, Object value);
+    boolean setIfAbsent(Object key, Object value);
 
     /**
      * 描述:如果不存在，就向缓存中设置值
@@ -62,7 +62,7 @@ public interface Cache {
      * @param timeUnit 单位
      * @return 是否设置成功：true成功
      */
-    boolean setIfAbsent(String key, Object value, long expire, TimeUnit timeUnit);
+    boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit);
 
     /**
      * 描述:如果不存在，就向缓存中设置值
@@ -71,7 +71,7 @@ public interface Cache {
      * @param value 缓存的值
      * @return 是否设置成功：true成功
      */
-    boolean setIfPresent(String key, Object value);
+    boolean setIfPresent(Object key, Object value);
 
     /**
      * 描述:如果存在，就向缓存中设置值
@@ -82,7 +82,7 @@ public interface Cache {
      * @param timeUnit 单位
      * @return 是否成功
      */
-    boolean setIfPresent(String key, Object value, long expire, TimeUnit timeUnit);
+    boolean setIfPresent(Object key, Object value, long expire, TimeUnit timeUnit);
 
     //*************************************get**************************************************/
 
@@ -93,7 +93,7 @@ public interface Cache {
      * @param value 缓存的值
      * @return 原来的缓存值
      */
-    Object getAndSet(String key, Object value);
+    Object getAndSet(Object key, Object value);
 
     /**
      * 描述:得到缓存值
@@ -101,7 +101,7 @@ public interface Cache {
      * @param key 缓存的key
      * @return 缓存的值
      */
-    Object get(String key);
+    Object get(Object key);
 
     /**
      * 批量获取
@@ -109,7 +109,7 @@ public interface Cache {
      * @param keys 缓存key集合
      * @return kes对应的缓存值
      */
-    Collection<Object> multiGet(Set<String> keys);
+    Collection<Object> multiGet(Set<Object> keys);
 
     /**
      * 只适合指定类型的值
@@ -118,7 +118,7 @@ public interface Cache {
      * @param clazz 值的类型
      * @return 缓存后T类型的数据
      */
-    <T> T get(String key, Class<T> clazz);
+    <T> T get(Object key, Class<T> clazz);
 
     /**
      * 描述:删除缓存
@@ -126,7 +126,7 @@ public interface Cache {
      * @param key 缓存的key
      * @return 是否删除成功
      */
-    boolean delete(String key);
+    boolean delete(Object key);
 
     /**
      * 批量删除
@@ -134,7 +134,7 @@ public interface Cache {
      * @param keys 需要删除key
      * @return 删除的数量
      */
-    long multiDelete(Collection<String> keys);
+    long multiDelete(Collection<Object> keys);
 
     /**
      * 获取所有的缓存信息
