@@ -1,10 +1,16 @@
 package io.github.architers.cache;
 
+import io.github.architers.cache.batch.CacheKey;
+import io.github.architers.cache.batch.CacheValue;
+
 import java.io.Serializable;
 import java.util.UUID;
 
+@CacheValue
 public class UserInfo implements Serializable {
+    @CacheKey
     private String username;
+    @CacheValue
     private String password;
     private String phone;
 
@@ -13,7 +19,7 @@ public class UserInfo implements Serializable {
         userInfo.setUsername(UUID.randomUUID().toString());
         userInfo.setPassword("testPassword");
         int num = (int) (Math.random() * 10);
-        userInfo.setPhone(StringUtil.repeat((num + ""),11));
+        userInfo.setPhone(StringUtil.repeat((num + ""), 11));
         return userInfo;
     }
 

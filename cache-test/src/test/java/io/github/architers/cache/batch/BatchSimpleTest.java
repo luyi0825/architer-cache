@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author luyi
@@ -31,6 +29,31 @@ public class BatchSimpleTest {
             userMap.put(userInfo.getUsername(), userInfo);
         }
         batchSimpleService.batchPutMap(userMap);
+    }
+
+    /**
+     * 批量放置集合值
+     */
+    @Test
+    public void batchPutCollection() {
+        List<UserInfo> userInfos = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUsername("test" + i).setPassword(UUID.randomUUID().toString());
+            userInfos.add(userInfo);
+        }
+        batchSimpleService.batchPutCollection(userInfos);
+    }
+
+    @Test
+    public void batchDeleteCollection() {
+        List<UserInfo> userInfos = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUsername("test" + i).setPassword(UUID.randomUUID().toString());
+            userInfos.add(userInfo);
+        }
+        batchSimpleService.batchDeleteCollection(userInfos);
     }
 
 
