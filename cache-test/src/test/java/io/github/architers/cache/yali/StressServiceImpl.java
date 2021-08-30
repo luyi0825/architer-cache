@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class StressServiceImpl implements StressService {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public UserInfo findByNameDirect(String name) {

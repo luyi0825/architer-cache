@@ -29,7 +29,7 @@ public class StressTest {
     @Autowired
     private StressService stressService;
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     public void addData(String key, UserInfo userInfo) {
         redisTemplate.opsForValue().set(key, userInfo);
