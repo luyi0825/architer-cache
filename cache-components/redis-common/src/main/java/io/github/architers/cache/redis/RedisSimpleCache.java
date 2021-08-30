@@ -33,7 +33,7 @@ public class RedisSimpleCache extends BaseRedisCache {
         //判断是不是批量操作
         if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
             //得到解析后的临时缓存map(此时的key没有前缀）
-            Map<Object, Object> tempCacheMap = batchValueParser.parse2MapValue(value);
+            Map<?, ?> tempCacheMap = batchValueParser.parse2MapValue(value);
             if (CollectionUtils.isEmpty(tempCacheMap)) {
                 return;
             }
@@ -42,15 +42,16 @@ public class RedisSimpleCache extends BaseRedisCache {
                 cacheMap.put(getCacheKey(key1), value1);
             });
             valueService.set(cacheMap);
+        } else {
+            valueService.set(getCacheKey(key), value);
         }
-        valueService.set(getCacheKey(key), value);
     }
 
     @Override
     public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
             //批量插入
-            Map<Object, Object> cacheMap = batchValueParser.parse2MapValue(value);
+            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(value);
             if (!CollectionUtils.isEmpty(cacheMap)) {
                 cacheMap.forEach((key1, value1) -> valueService.set(getCacheKey(key1), value1, expire, timeUnit));
             }
@@ -94,6 +95,11 @@ public class RedisSimpleCache extends BaseRedisCache {
     @Override
     public Map<Object, Object> getAll() {
         throw new RuntimeException("不支持的操作");
+    }
+
+    @Override
+    public void clearAll() {
+        throw new RuntimeException("暂时不支持");
     }
 
     @Override
