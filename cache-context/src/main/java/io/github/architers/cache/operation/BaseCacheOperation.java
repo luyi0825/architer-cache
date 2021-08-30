@@ -27,10 +27,6 @@ public abstract class BaseCacheOperation implements Operation {
      */
     private String key;
     /**
-     * 缓存值
-     */
-    private String cacheValue;
-    /**
      * @see Cacheable#async()
      */
     private boolean async;
@@ -48,7 +44,9 @@ public abstract class BaseCacheOperation implements Operation {
      * 条件满足的时候，不进行缓存操作
      */
     private String unless;
-
+    /**
+     * 缓存模式
+     */
     private CacheMode cacheMode;
     /**
      * 缓存管理器
