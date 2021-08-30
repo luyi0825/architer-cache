@@ -6,21 +6,21 @@ import org.springframework.util.Assert;
 
 /**
  * @author luyi
- * redis缓存
+ * redis缓存基类
  */
-public abstract class RedisCache implements Cache {
+public abstract class BaseRedisCache implements Cache {
     /**
      * 缓存名称
      */
     protected final String cacheName;
 
-    public RedisCache(String cacheName) {
+    public BaseRedisCache(String cacheName) {
         Assert.notNull(cacheName, "缓存名称不能为空");
         this.cacheName = cacheName;
     }
 
-    protected String getCacheKey(String key) {
-        return String.join(RedisConstants.SPLIT, cacheName, key);
+    protected String getCacheKey(Object key) {
+        return String.join(RedisConstants.SPLIT, cacheName, key.toString());
     }
 
     @Override

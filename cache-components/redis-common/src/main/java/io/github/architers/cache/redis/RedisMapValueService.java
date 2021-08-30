@@ -15,11 +15,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisMapValueService {
 
-    public final RedisTemplate<String, Object> redisTemplate;
-    private final HashOperations<String, String, Object> hashOperations;
+    public final RedisTemplate<Object, Object> redisTemplate;
+    private final HashOperations<Object, Object, Object> hashOperations;
 
 
-    public RedisMapValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisMapValueService(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.hashOperations = redisTemplate.opsForHash();
     }
@@ -29,7 +29,7 @@ public class RedisMapValueService {
      * @param hashKey redis中map数据中的hashKey
      * @param value   redis中map数据中的值
      */
-    public void set(String key, String hashKey, Object value) {
+    public void set(String key, Object hashKey, Object value) {
         hashOperations.put(key, hashKey, value);
     }
 
@@ -40,7 +40,7 @@ public class RedisMapValueService {
      * @param expireTime 过期时间
      * @param timeUnit   过期的时间单位
      */
-    public void set(String key, String hashKey, Object value, long expireTime, TimeUnit timeUnit) {
+    public void set(Object key, Object hashKey, Object value, long expireTime, TimeUnit timeUnit) {
         hashOperations.put(key, hashKey, value);
         if (expireTime > 0) {
             redisTemplate.expire(key, expireTime, timeUnit);
@@ -53,15 +53,15 @@ public class RedisMapValueService {
      * @param value   redis中map数据中的值
      * @return true表示设置成功，false表示值已经存在
      */
-    public boolean setIfAbsent(String key, String hashKey, Object value) {
+    public boolean setIfAbsent(Object key, Object hashKey, Object value) {
         return hashOperations.putIfAbsent(key, hashKey, value);
     }
 
-    public Object get(String key, String hashKey) {
+    public Object get(Object key, Object hashKey) {
         return hashOperations.get(key, hashKey);
     }
 
-    public <T> T get(String key, String hashKey, Class<T> clazz) {
+    public <T> T get(Object key, Object hashKey, Class<T> clazz) {
         Object object = hashOperations.get(key, hashKey);
         if (object instanceof String) {
             return JsonUtils.readValue((String) object, clazz);
@@ -69,7 +69,7 @@ public class RedisMapValueService {
         return (T) object;
     }
 
-    public List<Object> multiGet(String key, Set<String> hashKeys) {
+    public List<Object> multiGet(Object key, Set<Object> hashKeys) {
         return hashOperations.multiGet(key, hashKeys);
     }
 
@@ -78,15 +78,15 @@ public class RedisMapValueService {
      * @param hashKey
      * @return
      */
-    public Long delete(String key, Collection<String> hashKey) {
+    public Long delete(Object key, Collection<Object> hashKey) {
         return hashOperations.delete(key, hashKey);
     }
 
-    public void set(String key, Map<String, Object> map) {
+    public void set(Object key, Map<Object, Object> map) {
         hashOperations.putAll(key, map);
     }
 
-    public boolean setIfAbsent(String key, String hashKey, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfAbsent(Object key, Object hashKey, Object value, long expire, TimeUnit timeUnit) {
         redisTemplate.expire(key, expire, timeUnit);
         return hashOperations.putIfAbsent(key, hashKey, value);
     }

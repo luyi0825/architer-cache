@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
+
 
 /**
  * set缓存值操作
@@ -17,31 +17,31 @@ import java.util.stream.Collectors;
 @Component
 public class RedisSetValueService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
 
-    public RedisSetValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisSetValueService(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public void set(String key, Object value) {
+    public void set(Object key, Object value) {
         redisTemplate.opsForSet().add(key, value);
     }
 
-    public void remove(String key, Object value) {
+    public void remove(Object key, Object value) {
         redisTemplate.opsForSet().remove(key, value);
     }
 
-    public void add(String key, Collection<Object> values) {
+    public void add(Object key, Collection<Object> values) {
         redisTemplate.opsForSet().add(key, values);
     }
 
-    public void set(String key, Object value, long expire, TimeUnit timeUnit) {
+    public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         redisTemplate.opsForSet().add(key, value);
         redisTemplate.expire(key, expire, timeUnit);
     }
 
-    public boolean delete(String key) {
+    public boolean delete(Object key) {
         Boolean bool = redisTemplate.delete(key);
         if (bool != null) {
             return bool;
@@ -49,7 +49,7 @@ public class RedisSetValueService {
         return true;
     }
 
-    public long delete(Collection<String> keys) {
+    public long delete(Collection<Object> keys) {
         Long count = redisTemplate.delete(keys);
         if (count != null) {
             return count;

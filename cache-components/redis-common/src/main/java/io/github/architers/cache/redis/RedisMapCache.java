@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @author luyi
  * @version 1.0.0
  */
-public class RedisMapCache extends RedisCache {
+public class RedisMapCache extends BaseRedisCache {
 
     private final RedisMapValueService mapValueService;
 
@@ -23,43 +23,43 @@ public class RedisMapCache extends RedisCache {
 
 
     @Override
-    public void set(String key, Object value) {
+    public void set(Object key, Object value) {
         mapValueService.set(cacheName, key, value);
     }
 
     @Override
-    public void set(String key, Object value, long expire, TimeUnit timeUnit) {
+    public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         mapValueService.set(cacheName, key, value, expire, timeUnit);
     }
 
     @Override
-    public boolean setIfAbsent(String key, Object value) {
+    public boolean setIfAbsent(Object key, Object value) {
         return mapValueService.setIfAbsent(cacheName, key, value);
     }
 
     @Override
-    public Object get(String key) {
+    public Object get(Object key) {
         return mapValueService.get(cacheName, key);
     }
 
     @Override
-    public List<Object> multiGet(Set<String> keys) {
+    public List<Object> multiGet(Set<Object> keys) {
         keys = keys.stream().map(this::getCacheKey).collect(Collectors.toSet());
-        return mapValueService.multiGet(cacheName, keys);
+        return mapValueService.multiGet(cacheName, Collections.singleton(keys));
     }
 
     @Override
-    public <T> T get(String key, Class<T> clazz) {
+    public <T> T get(Object key, Class<T> clazz) {
         return mapValueService.get(cacheName, key, clazz);
     }
 
     @Override
-    public boolean delete(String key) {
+    public boolean delete(Object key) {
         return mapValueService.delete(cacheName, Collections.singleton(key)) > 0;
     }
 
     @Override
-    public long multiDelete(Collection<String> keys) {
+    public long multiDelete(Collection<Object> keys) {
         return mapValueService.delete(cacheName, keys);
     }
 
@@ -75,28 +75,28 @@ public class RedisMapCache extends RedisCache {
 
 
     @Override
-    public void set(Map<String, Object> map) {
+    public void set(Map<Object, Object> map) {
         mapValueService.set(cacheName,map);
     }
 
 
     @Override
-    public boolean setIfAbsent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit) {
         return mapValueService.setIfAbsent(cacheName,key,value,expire,timeUnit);
     }
 
     @Override
-    public boolean setIfPresent(String key, Object value) {
+    public boolean setIfPresent(Object key, Object value) {
         return false;
     }
 
     @Override
-    public boolean setIfPresent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfPresent(Object key, Object value, long expire, TimeUnit timeUnit) {
         return false;
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
+    public Object getAndSet(Object key, Object value) {
         return null;
     }
 

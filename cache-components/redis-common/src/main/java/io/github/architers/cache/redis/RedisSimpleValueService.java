@@ -1,7 +1,6 @@
 package io.github.architers.cache.redis;
 
 
-
 import io.github.architers.cache.CacheConstants;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -19,10 +18,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisSimpleValueService {
 
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final ValueOperations<String, Object> valueOperations;
+    private final RedisTemplate<Object, Object> redisTemplate;
+    private final ValueOperations<Object, Object> valueOperations;
 
-    public RedisSimpleValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisSimpleValueService(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.valueOperations = redisTemplate.opsForValue();
     }
@@ -33,7 +32,7 @@ public class RedisSimpleValueService {
      * @param key   缓存的key
      * @param value 缓存的值
      */
-    public void set(String key, Object value) {
+    public void set(Object key, Object value) {
         valueOperations.set(key, value);
     }
 
@@ -42,7 +41,7 @@ public class RedisSimpleValueService {
      *
      * @param map 缓存数据，key为缓存key,value为缓存值
      */
-    public void set(Map<String, Object> map) {
+    public void set(Map<Object, Object> map) {
         valueOperations.multiSet(map);
     }
 
@@ -53,7 +52,7 @@ public class RedisSimpleValueService {
      * @param timeUnit 返回的过期时间的单位
      * @return 过期时间，单位为传递的参数
      */
-    public long getExpireTime(String key, TimeUnit timeUnit) {
+    public long getExpireTime(Object key, TimeUnit timeUnit) {
         Long expireTime = redisTemplate.getExpire(key, timeUnit);
         if (expireTime != null) {
             return expireTime;
@@ -70,7 +69,7 @@ public class RedisSimpleValueService {
      * @param key      缓存的key
      * @param value    缓存的值
      */
-    public void set(String key, Object value, long expire, TimeUnit timeUnit) {
+    public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         if (expire == CacheConstants.NEVER_EXPIRE) {
             this.set(key, value);
         } else {
@@ -85,7 +84,7 @@ public class RedisSimpleValueService {
      * @param value 缓存的值
      * @return true为设置成功
      */
-    public boolean setIfAbsent(String key, Object value) {
+    public boolean setIfAbsent(Object key, Object value) {
         Boolean bool = valueOperations.setIfAbsent(key, value);
         if (bool != null) {
             return bool;
@@ -102,7 +101,7 @@ public class RedisSimpleValueService {
      * @param timeUnit 单位
      * @return 是否设置成功：true成功
      */
-    public boolean setIfAbsent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit) {
         Boolean bool = valueOperations.setIfAbsent(key, value, expire, timeUnit);
         if (bool != null) {
             return bool;
@@ -117,7 +116,7 @@ public class RedisSimpleValueService {
      * @param value 缓存的值
      * @return 是否设置成功：true成功
      */
-    public boolean setIfPresent(String key, Object value) {
+    public boolean setIfPresent(Object key, Object value) {
         Boolean bool = valueOperations.setIfPresent(key, value);
         if (bool != null) {
             return bool;
@@ -134,7 +133,7 @@ public class RedisSimpleValueService {
      * @param timeUnit 单位
      * @return 是否成功
      */
-    public boolean setIfPresent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfPresent(Object key, Object value, long expire, TimeUnit timeUnit) {
         Boolean bool = valueOperations.setIfPresent(key, value, expire, timeUnit);
         if (bool == null) {
             return false;
@@ -152,7 +151,7 @@ public class RedisSimpleValueService {
      * @param value 缓存的值
      * @return 原来的缓存值
      */
-    public Object getAndSet(String key, Object value) {
+    public Object getAndSet(Object key, Object value) {
         return valueOperations.getAndSet(key, value);
     }
 
@@ -162,14 +161,14 @@ public class RedisSimpleValueService {
      * @param key 缓存的key
      * @return 缓存的值
      */
-    public Object get(String key) {
+    public Object get(Object key) {
         return valueOperations.get(key);
     }
 
     /**
      * 批量获取
      */
-    public List<Object> multiGet(Collection<String> keys) {
+    public List<Object> multiGet(Collection<Object> keys) {
         return valueOperations.multiGet(keys);
     }
 
@@ -180,7 +179,7 @@ public class RedisSimpleValueService {
      * @param clazz 值的类型
      * @return 缓存后T类型的数据
      */
-    public <T> T get(String key, Class<T> clazz) {
+    public <T> T get(Object key, Class<T> clazz) {
         Object value = valueOperations.get(key);
         if (value instanceof String) {
             return JsonUtils.readValue((String) value, clazz);
@@ -194,7 +193,7 @@ public class RedisSimpleValueService {
      * @param key 缓存的key
      * @return 是否删除成功
      */
-    public boolean delete(String key) {
+    public boolean delete(Object key) {
         Boolean bool = redisTemplate.delete(key);
         if (bool != null) {
             return bool;
@@ -208,7 +207,7 @@ public class RedisSimpleValueService {
      * @param keys 需要删除key
      * @return 删除的数量
      */
-    public long multiDelete(Collection<String> keys) {
+    public long multiDelete(Collection<Object> keys) {
         if (CollectionUtils.isEmpty(keys)) {
             return 0L;
         }

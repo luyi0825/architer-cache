@@ -6,12 +6,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * map缓存类
+ * set缓存类
  *
  * @author luyi
  * @version 1.0.0
  */
-public class RedisSetCache extends RedisCache {
+public class RedisSetCache extends BaseRedisCache {
 
     private final RedisSetValueService setValueService;
 
@@ -23,44 +23,44 @@ public class RedisSetCache extends RedisCache {
 
 
     @Override
-    public void set(String key, Object value) {
+    public void set(Object key, Object value) {
         setValueService.set(getCacheKey(key), value);
     }
 
     @Override
-    public void set(String key, Object value, long expire, TimeUnit timeUnit) {
+    public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         setValueService.set(getCacheKey(key), value, expire, timeUnit);
     }
 
     @Override
-    public boolean setIfAbsent(String key, Object value) {
+    public boolean setIfAbsent(Object key, Object value) {
         return false;
     }
 
     @Override
-    public Object get(String key) {
+    public Object get(Object key) {
         return null;
     }
 
     @Override
-    public List<Object> multiGet(Set<String> keys) {
+    public List<Object> multiGet(Set<Object> keys) {
         keys = keys.stream().map(this::getCacheKey).collect(Collectors.toSet());
         return null;
     }
 
     @Override
-    public <T> T get(String key, Class<T> clazz) {
+    public <T> T get(Object key, Class<T> clazz) {
         return null;
     }
 
     @Override
-    public boolean delete(String key) {
+    public boolean delete(Object key) {
         return setValueService.delete(getCacheKey(key));
     }
 
     @Override
-    public long multiDelete(Collection<String> keys) {
-        keys=keys.stream().map(this::getCacheKey).collect(Collectors.toList());
+    public long multiDelete(Collection<Object> keys) {
+        keys = keys.stream().map(this::getCacheKey).collect(Collectors.toList());
         return setValueService.delete(keys);
     }
 
@@ -76,28 +76,28 @@ public class RedisSetCache extends RedisCache {
 
 
     @Override
-    public void set(Map<String, Object> map) {
+    public void set(Map<Object, Object> map) {
 
     }
 
 
     @Override
-    public boolean setIfAbsent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit) {
         return false;
     }
 
     @Override
-    public boolean setIfPresent(String key, Object value) {
+    public boolean setIfPresent(Object key, Object value) {
         return false;
     }
 
     @Override
-    public boolean setIfPresent(String key, Object value, long expire, TimeUnit timeUnit) {
+    public boolean setIfPresent(Object key, Object value, long expire, TimeUnit timeUnit) {
         return false;
     }
 
     @Override
-    public Object getAndSet(String key, Object value) {
+    public Object getAndSet(Object key, Object value) {
         return null;
     }
 
