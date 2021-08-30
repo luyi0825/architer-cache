@@ -142,4 +142,9 @@ public interface Cache {
      * @return 对应的所有的返回值
      */
     Object getAll();
+
+    /**
+     * 删除所有的值
+     */
+    void clearAll();
 }
