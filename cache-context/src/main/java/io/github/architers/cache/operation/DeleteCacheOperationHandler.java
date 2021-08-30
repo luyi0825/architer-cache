@@ -3,10 +3,10 @@ package io.github.architers.cache.operation;
 
 import io.github.architers.cache.expression.ExpressionMetadata;
 import io.github.architers.cache.proxy.MethodReturnValueFunction;
+import org.springframework.util.StringUtils;
 
 
 import java.util.Collection;
-import java.util.Objects;
 
 
 /**
@@ -30,12 +30,22 @@ public class DeleteCacheOperationHandler extends CacheOperationHandler {
     @Override
     protected void execute(BaseCacheOperation operation, ExpressionMetadata expressionMetadata, MethodReturnValueFunction methodReturnValueFunction) throws Throwable {
         methodReturnValueFunction.proceed();
+        DeleteCacheOperation deleteCacheOperation = (DeleteCacheOperation) operation;
         if (this.canHandler(operation, expressionMetadata, false)) {
             lockExecute.execute(operation.getLocked(), expressionMetadata, () -> {
                 Collection<String> cacheNames = getCacheNames(operation, expressionMetadata);
-                for (String cacheName : cacheNames) {
-                    String key = Objects.requireNonNull(expressionParser.parserExpression(expressionMetadata, operation.getKey())).toString();
-                    chooseCache(operation, cacheName).delete(key);
+                String cacheValue = deleteCacheOperation.getCacheValue();
+                if ("all".equals(cacheValue)) {
+                    for (String cacheName : cacheNames) {
+                        chooseCache(operation, cacheName).clearAll();
+                    }
+                } else if (StringUtils.hasText(cacheValue)) {
+                    Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
+                } else {
+                    for (String cacheName : cacheNames) {
+                        Object key = super.parseCacheKey(expressionMetadata, operation.getKey());
+                        chooseCache(operation, cacheName).delete(key);
+                    }
                 }
                 return null;
             });
