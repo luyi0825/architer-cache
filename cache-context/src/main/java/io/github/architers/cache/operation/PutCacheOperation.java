@@ -31,10 +31,6 @@ public class PutCacheOperation extends BaseCacheOperation {
      */
     private String cacheValue;
 
-    /**
-     * 缓存模式
-     */
-    private CacheMode cacheMode;
 
     public long getRandomTime() {
         return randomTime;
@@ -68,13 +64,4 @@ public class PutCacheOperation extends BaseCacheOperation {
         this.cacheValue = cacheValue;
     }
 
-    @Override
-    public CacheMode getCacheMode() {
-        return cacheMode;
-    }
-
-    @Override
-    public void setCacheMode(CacheMode cacheMode) {
-        this.cacheMode = cacheMode;
-    }
 }
