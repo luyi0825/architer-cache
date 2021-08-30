@@ -55,9 +55,9 @@ public class RedissonConfiguration {
 
 
     @Bean("redisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(RedissonConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<Object, Object> redisTemplate(RedissonConnectionFactory redisConnectionFactory) {
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(serializer);
@@ -69,13 +69,13 @@ public class RedissonConfiguration {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public RedisSimpleValueService redisValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisSimpleValueService redisValueService(RedisTemplate<Object, Object> redisTemplate) {
         return new RedisSimpleValueService(redisTemplate);
     }
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public RedisMapValueService redisMapValueService(RedisTemplate<String, Object> redisTemplate) {
+    public RedisMapValueService redisMapValueService(RedisTemplate<Object, Object> redisTemplate) {
         return new RedisMapValueService(redisTemplate);
     }
 
