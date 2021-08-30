@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * @version 1.0.0
  * 缓存值的标识
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
