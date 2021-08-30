@@ -182,6 +182,7 @@ public class CacheAnnotationsParser {
         deleteCacheOperation.setKey(deleteCache.key());
         deleteCacheOperation.setLocked(deleteCache.locked());
         deleteCacheOperation.setAsync(deleteCache.async());
+        deleteCacheOperation.setCacheValue(deleteCache.cacheValue());
         deleteCacheOperation.setCacheMode(deleteCache.cacheMode());
         ops.add(deleteCacheOperation);
     }
