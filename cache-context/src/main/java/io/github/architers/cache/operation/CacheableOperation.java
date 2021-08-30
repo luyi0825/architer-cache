@@ -28,9 +28,5 @@ public class CacheableOperation extends BaseCacheOperation {
      * @see Cacheable#expireTimeUnit()
      */
     private TimeUnit expireTimeUnit;
-    /**
-     * 缓存模式
-     */
-    private CacheMode cacheMode;
 
 }
