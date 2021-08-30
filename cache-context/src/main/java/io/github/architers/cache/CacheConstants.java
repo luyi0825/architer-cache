@@ -13,4 +13,9 @@ public class CacheConstants {
      */
     public static final long NEVER_EXPIRE = -1;
 
+    /**
+     * 批量缓存key的标识
+     */
+    public static final String BATCH_CACHE_KEY = "batch_cache_key";
+
 }
