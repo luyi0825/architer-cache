@@ -3,6 +3,7 @@ package io.github.architers.cache.redis;
 
 import io.github.architers.cache.CacheConstants;
 import io.github.architers.cache.batch.BatchValueParser;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -10,8 +11,6 @@ import java.util.stream.Collectors;
 
 /**
  * Redis工具类--处理简单类型
- * <p>
- * 注意，过期的时间单位都是秒
  *
  * @author luyi
  * @date 2020-12-24
@@ -33,15 +32,31 @@ public class RedisSimpleCache extends BaseRedisCache {
     public void set(Object key, Object value) {
         //判断是不是批量操作
         if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
-            valueService.set(batchValueParser.parse2MapValue(value));
+            //得到解析后的临时缓存map(此时的key没有前缀）
+            Map<Object, Object> tempCacheMap = batchValueParser.parse2MapValue(value);
+            if (CollectionUtils.isEmpty(tempCacheMap)) {
+                return;
+            }
+            Map<Object, Object> cacheMap = new HashMap<>(tempCacheMap.size());
+            tempCacheMap.forEach((key1, value1) -> {
+                cacheMap.put(getCacheKey(key1), value1);
+            });
+            valueService.set(cacheMap);
         }
         valueService.set(getCacheKey(key), value);
     }
 
-
     @Override
     public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
-        valueService.set(getCacheKey(key), value, expire, timeUnit);
+        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
+            //批量插入
+            Map<Object, Object> cacheMap = batchValueParser.parse2MapValue(value);
+            if (!CollectionUtils.isEmpty(cacheMap)) {
+                cacheMap.forEach((key1, value1) -> valueService.set(getCacheKey(key1), value1, expire, timeUnit));
+            }
+        } else {
+            valueService.set(getCacheKey(key), value, expire, timeUnit);
+        }
     }
 
     @Override
