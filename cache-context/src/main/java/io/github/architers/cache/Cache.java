@@ -5,8 +5,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author luyi
+ * 缓存接口类
+ * @version 1.0.0
+ */
 public interface Cache {
-
+    /**
+     * 得到缓存名称
+     *
+     * @return 缓存名称
+     */
     String getCacheName();
 
     /**
@@ -96,6 +105,9 @@ public interface Cache {
 
     /**
      * 批量获取
+     *
+     * @param keys 缓存key集合
+     * @return kes对应的缓存值
      */
     Collection<Object> multiGet(Set<String> keys);
 
@@ -124,5 +136,10 @@ public interface Cache {
      */
     long multiDelete(Collection<String> keys);
 
-    Map<Object, Object> getAll();
+    /**
+     * 获取所有的缓存信息
+     *
+     * @return 对应的所有的返回值
+     */
+    Object getAll();
 }
