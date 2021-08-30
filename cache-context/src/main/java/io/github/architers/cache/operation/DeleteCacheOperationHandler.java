@@ -41,6 +41,10 @@ public class DeleteCacheOperationHandler extends CacheOperationHandler {
                     }
                 } else if (StringUtils.hasText(cacheValue)) {
                     Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
+                    for (String cacheName : cacheNames) {
+                        Object key = super.parseCacheKey(expressionMetadata, operation.getKey());
+                        chooseCache(operation, cacheName).delete(value);
+                    }
                 } else {
                     for (String cacheName : cacheNames) {
                         Object key = super.parseCacheKey(expressionMetadata, operation.getKey());

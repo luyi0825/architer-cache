@@ -41,7 +41,7 @@ public class RedisSimpleValueService {
      *
      * @param map 缓存数据，key为缓存key,value为缓存值
      */
-    public void set(Map<Object, Object> map) {
+    public void set(Map<?, ?> map) {
         valueOperations.multiSet(map);
     }
 

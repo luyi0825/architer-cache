@@ -32,15 +32,10 @@ public class RedisSimpleCache extends BaseRedisCache {
     public void set(Object key, Object value) {
         //判断是不是批量操作
         if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
-            //得到解析后的临时缓存map(此时的key没有前缀）
-            Map<?, ?> tempCacheMap = batchValueParser.parse2MapValue(value);
-            if (CollectionUtils.isEmpty(tempCacheMap)) {
+            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(cacheName, value);
+            if (CollectionUtils.isEmpty(cacheMap)) {
                 return;
             }
-            Map<Object, Object> cacheMap = new HashMap<>(tempCacheMap.size());
-            tempCacheMap.forEach((key1, value1) -> {
-                cacheMap.put(getCacheKey(key1), value1);
-            });
             valueService.set(cacheMap);
         } else {
             valueService.set(getCacheKey(key), value);
@@ -51,7 +46,7 @@ public class RedisSimpleCache extends BaseRedisCache {
     public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
             //批量插入
-            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(value);
+            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(cacheName, value);
             if (!CollectionUtils.isEmpty(cacheMap)) {
                 cacheMap.forEach((key1, value1) -> valueService.set(getCacheKey(key1), value1, expire, timeUnit));
             }
@@ -83,7 +78,12 @@ public class RedisSimpleCache extends BaseRedisCache {
 
     @Override
     public boolean delete(Object key) {
-        return valueService.delete(getCacheKey(key));
+        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
+            Set<Object> keys =  batchValueParser.parseCacheKey(cacheName, key);
+            return valueService.multiDelete(keys) > 0;
+        } else {
+            return valueService.delete(getCacheKey(key));
+        }
     }
 
     @Override

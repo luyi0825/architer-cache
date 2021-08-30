@@ -69,6 +69,11 @@ public class RedisMapCache extends BaseRedisCache {
     }
 
     @Override
+    public void clearAll() {
+
+    }
+
+    @Override
     public String getCacheName() {
         return cacheName;
     }

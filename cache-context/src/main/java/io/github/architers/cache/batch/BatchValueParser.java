@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author luyi
  * @version 1.0.0
  */
-public class BatchValueParser {
+public class BatchValueParser implements BatchSupport {
     /**
      * 表示值为当前对象
      */
@@ -26,13 +26,9 @@ public class BatchValueParser {
      */
     Map<String, CacheField> fieldCaches = new ConcurrentHashMap<>();
 
-    /**
-     * 解析成Map值
-     *
-     * @param value 值类型为map或者collection(如果为集合，对应的key比如标明CacheKey和CacheValue注解）
-     * @return 缓存值解析，key为缓存key,value为缓存值
-     */
-    public Map<?, ?> parse2MapValue(Object value) {
+
+    @Override
+    public Map<?, ?> parse2MapValue(String cacheName, Object value) {
         if (value instanceof Map) {
             return (Map<?, ?>) value;
         }
@@ -130,9 +126,10 @@ public class BatchValueParser {
     }
 
 
-    public Set<?> parseCacheKey(@NonNull Object value) {
+    @Override
+    public Set<Object> parseCacheKey(@NonNull String cacheName, @NonNull Object value) {
         if (value instanceof Map) {
-            return ((Map<?, ?>) value).keySet();
+            return new HashSet<>(((Map<?, ?>) value).keySet());
         }
         if (value instanceof Collection) {
             Set<Object> keys = new HashSet<>(((Collection<?>) value).size());
