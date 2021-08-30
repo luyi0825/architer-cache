@@ -1,22 +1,26 @@
 package io.github.architers.cache.batch;
 
 import com.sun.xml.internal.txw2.IllegalAnnotationException;
+import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 批量值的解析
+ *
  * @author luyi
  * @version 1.0.0
- * 批量值的解析
  */
 public class BatchValueParser {
+    /**
+     * 表示值为当前对象
+     */
+    private static final String THIS_VALUE = "this";
     /**
      * 缓存类的缓存字段信息
      */
@@ -28,13 +32,14 @@ public class BatchValueParser {
      * @param value 值类型为map或者collection(如果为集合，对应的key比如标明CacheKey和CacheValue注解）
      * @return 缓存值解析，key为缓存key,value为缓存值
      */
-    public Map<Object, Object> parse2MapValue(Object value) {
+    public Map<?, ?> parse2MapValue(Object value) {
         if (value instanceof Map) {
-            return (Map<Object, Object>) value;
+            return (Map<?, ?>) value;
         }
+        //将list通过注解转map
         if (value instanceof Collection) {
-            Collection<Object> values = (Collection<Object>) value;
-            Map<Object, Object> cacheData = new HashMap<>();
+            Collection<?> values = (Collection<?>) value;
+            Map<Object, Object> cacheData = new HashMap<>(values.size());
             for (Object o : values) {
                 Class<?> clazz = o.getClass();
                 String className = clazz.getName();
@@ -43,7 +48,12 @@ public class BatchValueParser {
                     cacheField = this.getObjectCacheField(o);
                 }
                 Object cacheKey = getFieldValue(cacheField.getKey(), o);
-                Object cacheValue = getFieldValue(cacheField.getValue(), o);
+                Object cacheValue;
+                if (THIS_VALUE.equals(cacheField.getValue())) {
+                    cacheValue = o;
+                } else {
+                    cacheValue = getFieldValue(cacheField.getValue(), o);
+                }
                 cacheData.put(cacheKey, cacheValue);
             }
             return cacheData;
@@ -60,18 +70,33 @@ public class BatchValueParser {
     private CacheField getObjectCacheField(Object object) {
         CacheField cacheField = new CacheField();
         Class<?> clazz = object.getClass();
+        //是否解析到key和value（减少遍历）
+        boolean parsedKey = false, parsedValue = false;
+        Annotation[] annotations = clazz.getDeclaredAnnotations();
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof CacheValue) {
+                cacheField.setValue(THIS_VALUE);
+                parsedValue = true;
+            }
+        }
         for (Field field : clazz.getDeclaredFields()) {
-            Annotation[] annotations = field.getDeclaredAnnotations();
+            annotations = field.getDeclaredAnnotations();
             if (annotations.length == 0) {
                 continue;
             }
             for (Annotation annotation : annotations) {
-                if (annotation instanceof CacheKey) {
+                if (annotation instanceof CacheKey && !parsedKey) {
                     cacheField.setKey(field.getName());
+                    parsedKey = true;
                 }
-                if (annotation instanceof CacheValue) {
+                if (annotation instanceof CacheValue && !parsedValue) {
                     cacheField.setValue(field.getName());
+                    parsedValue = true;
                 }
+            }
+            //解析到了就终止循环
+            if (parsedKey && parsedValue) {
+                break;
             }
         }
         String className = clazz.getName();
@@ -86,47 +111,40 @@ public class BatchValueParser {
         return fieldCaches.get(className);
     }
 
-    private Object getFieldValue(String fieldName, Object o) {
+    /**
+     * 得到对象的字段值
+     *
+     * @param fieldName 字段名称
+     * @param object    对象示例
+     * @return 字段值
+     */
+    private Object getFieldValue(String fieldName, Object object) {
         try {
-            Field field = o.getClass().getDeclaredField(fieldName);
-            return ReflectionUtils.getField(field, o);
+            Field field = object.getClass().getDeclaredField(fieldName);
+            //暴力反射
+            field.setAccessible(true);
+            return ReflectionUtils.getField(field, object);
         } catch (Exception e) {
             throw new RuntimeException("获取字段值失败", e);
         }
     }
 
-    /**
-     * 缓存字段
-     */
-    static class CacheField {
-        /**
-         * key对应的字段
-         */
-        private String key;
-        /**
-         * value对应的字段
-         */
-        private String value;
 
-        public String getKey() {
-            return key;
+    public Set<?> parseCacheKey(@NonNull Object value) {
+        if (value instanceof Map) {
+            return ((Map<?, ?>) value).keySet();
         }
-
-        public CacheField setKey(String key) {
-            this.key = key;
-            return this;
+        if (value instanceof Collection) {
+            Set<Object> keys = new HashSet<>(((Collection<?>) value).size());
+            ((Collection<?>) value).forEach(e -> {
+                CacheField cacheField = fieldCaches.get(value.getClass().getName());
+                if (cacheField == null) {
+                    cacheField = getObjectCacheField(value);
+                }
+                keys.add(getFieldValue(cacheField.getKey(), e));
+            });
+            return keys;
         }
-
-        public String getValue() {
-            return value;
-        }
-
-        public CacheField setValue(String value) {
-            this.value = value;
-            return this;
-        }
+        return null;
     }
-
-    ;
-
 }
