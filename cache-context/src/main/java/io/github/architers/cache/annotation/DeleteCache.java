@@ -36,6 +36,11 @@ public @interface DeleteCache {
     String key();
 
     /**
+     * 缓存值:此字段用于做批量操作（all表示删除cacheName对应的所有的缓存，其他根据对应的值删除）
+     */
+    String cacheValue() default "";
+
+    /**
      * 默认没有锁
      */
     Locked locked() default @Locked(lock = LockEnum.NONE, key = "");
