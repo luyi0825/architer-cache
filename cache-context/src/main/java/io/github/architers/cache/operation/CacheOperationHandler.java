@@ -2,6 +2,7 @@ package io.github.architers.cache.operation;
 
 
 import io.github.architers.cache.Cache;
+import io.github.architers.cache.CacheConstants;
 import io.github.architers.cache.CacheMode;
 import io.github.architers.cache.expression.ExpressionMetadata;
 import io.github.architers.cache.expression.ExpressionParser;
@@ -54,6 +55,16 @@ public abstract class CacheOperationHandler implements Ordered {
      * @return 是否匹配，如果true就对这个operation的进行缓存处理
      */
     public abstract boolean match(Operation operation);
+
+    protected Object parseCacheKey(ExpressionMetadata expressionMetadata, String key) {
+        if (!StringUtils.hasText(key)) {
+            throw new IllegalArgumentException("key is empty");
+        }
+        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
+            return key;
+        }
+        return expressionParser.parserExpression(expressionMetadata, key);
+    }
 
 
     /**

@@ -32,7 +32,7 @@ public class PutCacheOperationHandler extends CacheOperationHandler {
         Object value = expressionParser.parserExpression(expressionMetadata, cacheValue);
         if (this.canHandler(operation, expressionMetadata, false)) {
             lockExecute.execute(operation.getLocked(), expressionMetadata, () -> {
-                String key = (String) expressionParser.parserExpression(expressionMetadata, operation.getKey());
+                Object key = parseCacheKey(expressionMetadata, operation.getKey());
                 for (String cacheName : cacheNames) {
                     chooseCache(operation, cacheName).set(key, value, expireTime, putCacheOperation.getExpireTimeUnit());
                 }
