@@ -7,7 +7,7 @@
         <version>1.0.0</version>
         <artifactId>cache-lock</artifactId>
     </parent>
-    <artifactId>cloud-zookeeper-starter</artifactId>
+    <artifactId>cache-lock-redisson</artifactId>
     <name>cloud-zookeeper-starter</name>
     <description>cloud-zookeeper-starter</description>
     <packaging>jar</packaging>
@@ -28,18 +28,19 @@
             <artifactId>spring-cloud-zookeeper-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.architers.cache</groupId>
             <artifactId>cache-context</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

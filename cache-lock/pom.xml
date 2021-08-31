@@ -14,7 +14,7 @@
     <description>缓存包</description>
     <packaging>pom</packaging>
     <modules>
-        <module>cache-lock-redission</module>
+        <module>cache-lock-redisson</module>
         <module>cache-lock-zookeeper</module>
     </modules>
 
