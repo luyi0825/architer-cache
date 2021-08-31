@@ -1,7 +1,6 @@
 package io.github.architers.cache;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +26,13 @@ public interface Cache {
     void set(Object key, Object value);
 
     /**
-     * 批量设置，设置的值不会过期
+     * 批量设置
      *
-     * @param map 缓存数据，key为缓存key,value为缓存值
+     * @param expire   过期时间
+     * @param timeUnit 单位
+     * @param value    批量缓存的数据
      */
-    void set(Map<Object, Object> map);
+    void multiSet(Object value, long expire, TimeUnit timeUnit);
 
     /**
      * 描述:向缓存中存放值，并设置过期时间
@@ -134,7 +135,7 @@ public interface Cache {
      * @param keys 需要删除key
      * @return 删除的数量
      */
-    long multiDelete(Collection<Object> keys);
+    long multiDelete(Object keys);
 
     /**
      * 获取所有的缓存信息
