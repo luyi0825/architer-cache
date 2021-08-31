@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * map缓存类
+ * redis对应的map 类型缓存类
  *
  * @author luyi
  * @version 1.0.0
@@ -25,6 +25,11 @@ public class RedisMapCache extends BaseRedisCache {
     @Override
     public void set(Object key, Object value) {
         mapValueService.set(cacheName, key, value);
+    }
+
+    @Override
+    public void multiSet(Object value, long expire, TimeUnit timeUnit) {
+
     }
 
     @Override
@@ -59,8 +64,8 @@ public class RedisMapCache extends BaseRedisCache {
     }
 
     @Override
-    public long multiDelete(Collection<Object> keys) {
-        return mapValueService.delete(cacheName, keys);
+    public long multiDelete(Object keys) {
+        return 0;
     }
 
     @Override
@@ -81,7 +86,7 @@ public class RedisMapCache extends BaseRedisCache {
 
     @Override
     public boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit) {
-        return mapValueService.setIfAbsent(cacheName,key,value,expire,timeUnit);
+        return mapValueService.setIfAbsent(cacheName, key, value, expire, timeUnit);
     }
 
     @Override

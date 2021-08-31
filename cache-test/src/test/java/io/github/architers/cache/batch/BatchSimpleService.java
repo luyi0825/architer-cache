@@ -26,8 +26,8 @@ public class BatchSimpleService {
         logger.info("批量插入-batchPutCollection");
     }
 
-    @DeleteCache(cacheName = "'BatchSimpleService_batchCollection'", key = CacheConstants.BATCH_CACHE_KEY)
-    public void batchDeleteCollection(List<UserInfo> userInfos) {
+    @DeleteCache(cacheName = "'BatchSimpleService_batchCollection'", key = CacheConstants.BATCH_CACHE_KEY, cacheValue = "#userInfos")
+    public void batchDeleteCollection(List<Object> userInfos) {
         logger.info("批量删除-batchDeleteCollection");
     }
 }

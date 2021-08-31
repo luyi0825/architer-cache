@@ -64,9 +64,8 @@ public class RedisSetCache extends BaseRedisCache {
     }
 
     @Override
-    public long multiDelete(Collection<Object> keys) {
-        keys = keys.stream().map(this::getCacheKey).collect(Collectors.toList());
-        return setValueService.delete(keys);
+    public long multiDelete(Object keys) {
+        return 0;
     }
 
     @Override
@@ -83,9 +82,6 @@ public class RedisSetCache extends BaseRedisCache {
     public String getCacheName() {
         return cacheName;
     }
-
-
-
 
 
     @Override

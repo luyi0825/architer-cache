@@ -1,10 +1,10 @@
 package io.github.architers.cache.operation;
 
 
+import io.github.architers.cache.Cache;
+import io.github.architers.cache.CacheConstants;
 import io.github.architers.cache.expression.ExpressionMetadata;
 import io.github.architers.cache.proxy.MethodReturnValueFunction;
-import org.springframework.util.StringUtils;
-
 
 import java.util.Collection;
 
@@ -30,30 +30,34 @@ public class DeleteCacheOperationHandler extends CacheOperationHandler {
     @Override
     protected void execute(BaseCacheOperation operation, ExpressionMetadata expressionMetadata, MethodReturnValueFunction methodReturnValueFunction) throws Throwable {
         methodReturnValueFunction.proceed();
-        DeleteCacheOperation deleteCacheOperation = (DeleteCacheOperation) operation;
         if (this.canHandler(operation, expressionMetadata, false)) {
-            lockExecute.execute(operation.getLocked(), expressionMetadata, () -> {
-                Collection<String> cacheNames = getCacheNames(operation, expressionMetadata);
-                String cacheValue = deleteCacheOperation.getCacheValue();
-                if ("all".equals(cacheValue)) {
-                    for (String cacheName : cacheNames) {
-                        chooseCache(operation, cacheName).clearAll();
-                    }
-                } else if (StringUtils.hasText(cacheValue)) {
-                    Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
-                    for (String cacheName : cacheNames) {
-                        Object key = super.parseCacheKey(expressionMetadata, operation.getKey());
-                        chooseCache(operation, cacheName).delete(value);
-                    }
-                } else {
-                    for (String cacheName : cacheNames) {
-                        Object key = super.parseCacheKey(expressionMetadata, operation.getKey());
-                        chooseCache(operation, cacheName).delete(key);
-                    }
-                }
-                return null;
-            });
+            this.doDelete((DeleteCacheOperation) operation, expressionMetadata);
         }
+    }
+
+    /**
+     * 执行删除操作
+     *
+     * @param operation          删除操作的信息
+     * @param expressionMetadata 表达式元数据
+     * @throws Throwable 锁执行的业务抛出的异常
+     */
+    private void doDelete(DeleteCacheOperation operation, ExpressionMetadata expressionMetadata) throws Throwable {
+        lockExecute.execute(operation.getLocked(), expressionMetadata, () -> {
+            Collection<String> cacheNames = getCacheNames(operation, expressionMetadata);
+            String cacheValue = operation.getCacheValue();
+            for (String cacheName : cacheNames) {
+                Cache cache = chooseCache(operation, cacheName);
+                if (CacheConstants.BATCH_CACHE_KEY.equals(operation.getKey())) {
+                    Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
+                    cache.multiDelete(value);
+                } else {
+                    Object cacheKey = super.parseCacheKey(expressionMetadata, operation.getKey());
+                    cache.delete(cacheKey);
+                }
+            }
+            return null;
+        });
     }
 
     @Override

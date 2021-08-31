@@ -1,10 +1,6 @@
 package io.github.architers.cache.batch;
 
 import com.sun.xml.internal.txw2.IllegalAnnotationException;
-import io.github.architers.cache.batch.CacheField;
-import io.github.architers.cache.batch.CacheKey;
-import io.github.architers.cache.batch.CacheValue;
-import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -115,11 +111,15 @@ public class BatchValueFactory {
         }
     }
 
+    /**
+     * 将值解析成map
+     */
     public Map<Object, Object> parseValue2Map(String cacheName, String split, Object value) {
         if (value instanceof Map) {
             Map<Object, Object> cacheMap = new HashMap<>(((Map<?, ?>) value).size());
             ((Map<?, ?>) value).forEach((k, v) -> {
-                cacheMap.put(String.join(split, cacheName, k.toString()), value);
+                String cacheKey = String.join(split, cacheName, k.toString());
+                cacheMap.put(cacheKey, value);
             });
             return cacheMap;
         }
@@ -137,4 +137,23 @@ public class BatchValueFactory {
         throw new IllegalArgumentException("cacheValue有误,必须属于map或者Collection");
     }
 
+    /**
+     * 解析缓存key
+     *
+     * @param cacheName 缓存名称
+     */
+    public Collection<Object> parseCacheKeys(String cacheName, String split, Object keys) {
+        if (keys instanceof Collection) {
+            Collection<Object> cacheKeys = new ArrayList<>(((Collection<?>) keys).size());
+            ((Collection<?>) keys).forEach(key -> {
+                if (key instanceof String || key instanceof Number) {
+                    cacheKeys.add(String.join(split, cacheName, key.toString()));
+                } else {
+                    cacheKeys.add(String.join(split, cacheName, this.getCacheKey(key).toString()));
+                }
+            });
+            return cacheKeys;
+        }
+        throw new IllegalArgumentException("keys类型不匹配");
+    }
 }

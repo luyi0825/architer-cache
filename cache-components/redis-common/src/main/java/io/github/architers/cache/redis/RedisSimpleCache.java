@@ -72,9 +72,12 @@ public class RedisSimpleCache extends BaseRedisCache {
     }
 
     @Override
-    public long multiDelete(Collection<Object> keys) {
-        keys = keys.stream().map(this::getCacheKey).collect(Collectors.toList());
-        return valueService.multiDelete(Collections.singleton(keys));
+    public long multiDelete(Object keys) {
+        Collection<Object> cacheKeys = batchValueParser.parseCacheKeys(cacheName, RedisConstants.SPLIT, keys);
+        if (CollectionUtils.isEmpty(cacheKeys)) {
+            return 0;
+        }
+        return valueService.multiDelete(cacheKeys);
     }
 
     @Override

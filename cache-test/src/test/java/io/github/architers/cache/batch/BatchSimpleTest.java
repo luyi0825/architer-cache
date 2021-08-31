@@ -47,11 +47,15 @@ public class BatchSimpleTest {
 
     @Test
     public void batchDeleteCollection() {
-        List<UserInfo> userInfos = new ArrayList<>();
+        List<Object> userInfos = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUsername("test" + i).setPassword(UUID.randomUUID().toString());
-            userInfos.add(userInfo);
+            if (i % 2 == 0) {
+                UserInfo userInfo = new UserInfo();
+                userInfo.setUsername("test" + i).setPassword(UUID.randomUUID().toString());
+                userInfos.add(userInfo);
+            } else {
+                userInfos.add("test" + i);
+            }
         }
         batchSimpleService.batchDeleteCollection(userInfos);
     }
