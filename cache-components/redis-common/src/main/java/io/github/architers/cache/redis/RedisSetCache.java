@@ -28,6 +28,11 @@ public class RedisSetCache extends BaseRedisCache {
     }
 
     @Override
+    public void multiSet(Object value, long expire, TimeUnit timeUnit) {
+
+    }
+
+    @Override
     public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
         setValueService.set(getCacheKey(key), value, expire, timeUnit);
     }
@@ -80,10 +85,7 @@ public class RedisSetCache extends BaseRedisCache {
     }
 
 
-    @Override
-    public void set(Map<Object, Object> map) {
 
-    }
 
 
     @Override

@@ -80,12 +80,6 @@ public class RedisMapCache extends BaseRedisCache {
 
 
     @Override
-    public void set(Map<Object, Object> map) {
-        mapValueService.set(cacheName,map);
-    }
-
-
-    @Override
     public boolean setIfAbsent(Object key, Object value, long expire, TimeUnit timeUnit) {
         return mapValueService.setIfAbsent(cacheName,key,value,expire,timeUnit);
     }

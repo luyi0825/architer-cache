@@ -36,13 +36,19 @@ public class RedisSimpleValueService {
         valueOperations.set(key, value);
     }
 
+
     /**
-     * 批量设置，设置的值不会过期
+     * 批量设置
      *
      * @param map 缓存数据，key为缓存key,value为缓存值
      */
-    public void set(Map<?, ?> map) {
+    public void multiSet(Map<Object, Object> map, long expire, TimeUnit timeUnit) {
         valueOperations.multiSet(map);
+        if (CacheConstants.NEVER_EXPIRE != expire) {
+            for (Object key : map.keySet()) {
+                redisTemplate.expire(key, expire, timeUnit);
+            }
+        }
     }
 
     /**
@@ -217,5 +223,6 @@ public class RedisSimpleValueService {
         }
         return count;
     }
+
 
 }

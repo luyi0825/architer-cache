@@ -2,7 +2,8 @@ package io.github.architers.cache.redis;
 
 
 import io.github.architers.cache.CacheConstants;
-import io.github.architers.cache.batch.BatchValueParser;
+import io.github.architers.cache.batch.BatchValueFactory;
+import io.github.architers.cache.batch.CacheField;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class RedisSimpleCache extends BaseRedisCache {
 
-    BatchValueParser batchValueParser = new BatchValueParser();
+    BatchValueFactory batchValueParser = new BatchValueFactory();
 
     private final RedisSimpleValueService valueService;
 
@@ -30,29 +31,18 @@ public class RedisSimpleCache extends BaseRedisCache {
 
     @Override
     public void set(Object key, Object value) {
-        //判断是不是批量操作
-        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
-            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(cacheName, value);
-            if (CollectionUtils.isEmpty(cacheMap)) {
-                return;
-            }
-            valueService.set(cacheMap);
-        } else {
-            valueService.set(getCacheKey(key), value);
-        }
+        valueService.set(getCacheKey(key), value);
+    }
+
+    @Override
+    public void multiSet(Object values, long expire, TimeUnit timeUnit) {
+        Map<Object, Object> cacheMap = batchValueParser.parseValue2Map(cacheName, RedisConstants.SPLIT, values);
+        valueService.multiSet(cacheMap, expire, timeUnit);
     }
 
     @Override
     public void set(Object key, Object value, long expire, TimeUnit timeUnit) {
-        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
-            //批量插入
-            Map<?, ?> cacheMap = batchValueParser.parse2MapValue(cacheName, value);
-            if (!CollectionUtils.isEmpty(cacheMap)) {
-                cacheMap.forEach((key1, value1) -> valueService.set(getCacheKey(key1), value1, expire, timeUnit));
-            }
-        } else {
-            valueService.set(getCacheKey(key), value, expire, timeUnit);
-        }
+        valueService.set(getCacheKey(key), value, expire, timeUnit);
     }
 
     @Override
@@ -78,12 +68,7 @@ public class RedisSimpleCache extends BaseRedisCache {
 
     @Override
     public boolean delete(Object key) {
-        if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
-            Set<Object> keys =  batchValueParser.parseCacheKey(cacheName, key);
-            return valueService.multiDelete(keys) > 0;
-        } else {
-            return valueService.delete(getCacheKey(key));
-        }
+        return valueService.delete(getCacheKey(key));
     }
 
     @Override
@@ -105,12 +90,6 @@ public class RedisSimpleCache extends BaseRedisCache {
     @Override
     public String getCacheName() {
         return cacheName;
-    }
-
-
-    @Override
-    public void set(Map<Object, Object> map) {
-        valueService.set(map);
     }
 
 

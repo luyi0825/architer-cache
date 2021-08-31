@@ -1,6 +1,9 @@
 package io.github.architers.cache.batch;
 
 import com.sun.xml.internal.txw2.IllegalAnnotationException;
+import io.github.architers.cache.batch.CacheField;
+import io.github.architers.cache.batch.CacheKey;
+import io.github.architers.cache.batch.CacheValue;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
@@ -16,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author luyi
  * @version 1.0.0
  */
-public class BatchValueParser implements BatchSupport {
+public class BatchValueFactory {
     /**
      * 表示值为当前对象
      */
@@ -27,43 +30,13 @@ public class BatchValueParser implements BatchSupport {
     Map<String, CacheField> fieldCaches = new ConcurrentHashMap<>();
 
 
-    @Override
-    public Map<?, ?> parse2MapValue(String cacheName, Object value) {
-        if (value instanceof Map) {
-            return (Map<?, ?>) value;
-        }
-        //将list通过注解转map
-        if (value instanceof Collection) {
-            Collection<?> values = (Collection<?>) value;
-            Map<Object, Object> cacheData = new HashMap<>(values.size());
-            for (Object o : values) {
-                Class<?> clazz = o.getClass();
-                String className = clazz.getName();
-                CacheField cacheField = fieldCaches.get(className);
-                if (cacheField == null) {
-                    cacheField = this.getObjectCacheField(o);
-                }
-                Object cacheKey = getFieldValue(cacheField.getKey(), o);
-                Object cacheValue;
-                if (THIS_VALUE.equals(cacheField.getValue())) {
-                    cacheValue = o;
-                } else {
-                    cacheValue = getFieldValue(cacheField.getValue(), o);
-                }
-                cacheData.put(cacheKey, cacheValue);
-            }
-            return cacheData;
-        }
-        throw new IllegalArgumentException("cacheValue有误,必须属于map或者Collection");
-    }
-
     /**
      * 通过反射得到对象的缓存字段信息
      *
      * @param object 对应的缓存对象
      * @return 缓存字段信息
      */
-    private CacheField getObjectCacheField(Object object) {
+    public CacheField getObjectCacheField(Object object) {
         CacheField cacheField = new CacheField();
         Class<?> clazz = object.getClass();
         //是否解析到key和value（减少遍历）
@@ -108,13 +81,30 @@ public class BatchValueParser implements BatchSupport {
     }
 
     /**
+     * 得到缓存key的值
+     */
+    public Object getCacheKey(Object o) {
+        CacheField cacheField = getObjectCacheField(o);
+        return getFieldValue(cacheField.getKey(), o);
+    }
+
+
+    public Object getCacheValue(Object o) {
+        CacheField cacheField = getObjectCacheField(o);
+        if (THIS_VALUE.equals(cacheField.getValue())) {
+            return o;
+        }
+        return getFieldValue(cacheField.getValue(), o);
+    }
+
+    /**
      * 得到对象的字段值
      *
      * @param fieldName 字段名称
      * @param object    对象示例
      * @return 字段值
      */
-    private Object getFieldValue(String fieldName, Object object) {
+    public Object getFieldValue(String fieldName, Object object) {
         try {
             Field field = object.getClass().getDeclaredField(fieldName);
             //暴力反射
@@ -125,23 +115,26 @@ public class BatchValueParser implements BatchSupport {
         }
     }
 
-
-    @Override
-    public Set<Object> parseCacheKey(@NonNull String cacheName, @NonNull Object value) {
+    public Map<Object, Object> parseValue2Map(String cacheName, String split, Object value) {
         if (value instanceof Map) {
-            return new HashSet<>(((Map<?, ?>) value).keySet());
-        }
-        if (value instanceof Collection) {
-            Set<Object> keys = new HashSet<>(((Collection<?>) value).size());
-            ((Collection<?>) value).forEach(e -> {
-                CacheField cacheField = fieldCaches.get(value.getClass().getName());
-                if (cacheField == null) {
-                    cacheField = getObjectCacheField(value);
-                }
-                keys.add(getFieldValue(cacheField.getKey(), e));
+            Map<Object, Object> cacheMap = new HashMap<>(((Map<?, ?>) value).size());
+            ((Map<?, ?>) value).forEach((k, v) -> {
+                cacheMap.put(String.join(split, cacheName, k.toString()), value);
             });
-            return keys;
+            return cacheMap;
         }
-        return null;
+        //将list通过注解转map
+        if (value instanceof Collection) {
+            Collection<?> values = (Collection<?>) value;
+            Map<Object, Object> cacheData = new HashMap<>(values.size());
+            for (Object o : values) {
+                Object cacheKey = this.getCacheKey(o);
+                Object cacheValue = this.getCacheValue(o);
+                cacheData.put(String.join(split, cacheName, cacheKey.toString()), cacheValue);
+            }
+            return cacheData;
+        }
+        throw new IllegalArgumentException("cacheValue有误,必须属于map或者Collection");
     }
+
 }
