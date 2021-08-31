@@ -1,6 +1,6 @@
 package io.github.architers.cache.batch;
 
-import com.sun.xml.internal.txw2.IllegalAnnotationException;
+import io.github.architers.cache.exception.CacheAnnotationIllegalException;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -66,11 +66,11 @@ public class BatchValueFactory {
         }
         String className = clazz.getName();
         if (!StringUtils.hasText(cacheField.getKey())) {
-            throw new IllegalAnnotationException(className + "中cacheKey不存在");
+            throw new CacheAnnotationIllegalException(className + "中cacheKey不存在");
         }
 
         if (!StringUtils.hasText(cacheField.getValue())) {
-            throw new IllegalAnnotationException(className + "中cacheValue不存在");
+            throw new CacheAnnotationIllegalException(className + "中cacheValue不存在");
         }
         fieldCaches.putIfAbsent(className, cacheField);
         return fieldCaches.get(className);
