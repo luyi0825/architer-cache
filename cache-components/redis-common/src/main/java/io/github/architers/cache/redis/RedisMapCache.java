@@ -1,6 +1,9 @@
 package io.github.architers.cache.redis;
 
 
+import io.github.architers.cache.batch.BatchValueFactory;
+import org.springframework.util.CollectionUtils;
+
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -15,6 +18,7 @@ public class RedisMapCache extends BaseRedisCache {
 
     private final RedisMapValueService mapValueService;
 
+    BatchValueFactory batchValueFactory = new BatchValueFactory();
 
     public RedisMapCache(String cacheName, RedisMapValueService mapValueService) {
         super(cacheName);
@@ -29,7 +33,8 @@ public class RedisMapCache extends BaseRedisCache {
 
     @Override
     public void multiSet(Object value, long expire, TimeUnit timeUnit) {
-
+        Map<Object, Object> cacheMap = batchValueFactory.parseValue2Map(value);
+        mapValueService.multiSet(cacheName, cacheMap, expire, timeUnit);
     }
 
     @Override
@@ -60,12 +65,16 @@ public class RedisMapCache extends BaseRedisCache {
 
     @Override
     public boolean delete(Object key) {
-        return mapValueService.delete(cacheName, Collections.singleton(key)) > 0;
+        return mapValueService.delete(cacheName, key) > 0;
     }
 
     @Override
     public long multiDelete(Object keys) {
-        return 0;
+        Collection<Object> cacheKeys = batchValueFactory.parseCacheKeys(keys);
+        if (CollectionUtils.isEmpty(cacheKeys)) {
+            return 0;
+        }
+        return mapValueService.delete(cacheName, cacheKeys.toArray());
     }
 
     @Override
@@ -75,7 +84,7 @@ public class RedisMapCache extends BaseRedisCache {
 
     @Override
     public void clearAll() {
-
+        mapValueService.delete(cacheName);
     }
 
     @Override

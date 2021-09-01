@@ -78,16 +78,26 @@ public class RedisMapValueService {
      * @param hashKey
      * @return
      */
-    public Long delete(Object key, Collection<Object> hashKey) {
+    public Long delete(Object key, Object... hashKey) {
         return hashOperations.delete(key, hashKey);
     }
 
-    public void set(Object key, Map<Object, Object> map) {
-        hashOperations.putAll(key, map);
+    public void delete(Object key) {
+        redisTemplate.delete(key);
     }
+
+    public void multiSet(String key, Map<Object, Object> map, long expire, TimeUnit timeUnit) {
+        hashOperations.putAll(key, map);
+        if (expire > 0) {
+            redisTemplate.expire(key, expire, timeUnit);
+        }
+    }
+
 
     public boolean setIfAbsent(Object key, Object hashKey, Object value, long expire, TimeUnit timeUnit) {
         redisTemplate.expire(key, expire, timeUnit);
         return hashOperations.putIfAbsent(key, hashKey, value);
     }
+
+
 }
