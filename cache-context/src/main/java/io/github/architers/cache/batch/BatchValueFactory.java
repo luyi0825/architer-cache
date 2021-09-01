@@ -137,6 +137,30 @@ public class BatchValueFactory {
         throw new IllegalArgumentException("cacheValue有误,必须属于map或者Collection");
     }
 
+
+    /**
+     * 将值解析成map
+     */
+    public Map<Object, Object> parseValue2Map(Object value) {
+        if (value instanceof Map) {
+            Map<Object, Object> cacheMap = new HashMap<>(((Map<?, ?>) value).size());
+            cacheMap.putAll((Map<?, ?>) value);
+            return cacheMap;
+        }
+        //将list通过注解转map
+        if (value instanceof Collection) {
+            Collection<?> values = (Collection<?>) value;
+            Map<Object, Object> cacheData = new HashMap<>(values.size());
+            for (Object o : values) {
+                Object cacheKey = this.getCacheKey(o);
+                Object cacheValue = this.getCacheValue(o);
+                cacheData.put(cacheKey, cacheValue);
+            }
+            return cacheData;
+        }
+        throw new IllegalArgumentException("cacheValue有误,必须属于map或者Collection");
+    }
+
     /**
      * 解析缓存key
      *
@@ -150,6 +174,21 @@ public class BatchValueFactory {
                     cacheKeys.add(String.join(split, cacheName, key.toString()));
                 } else {
                     cacheKeys.add(String.join(split, cacheName, this.getCacheKey(key).toString()));
+                }
+            });
+            return cacheKeys;
+        }
+        throw new IllegalArgumentException("keys类型不匹配");
+    }
+
+    public Collection<Object> parseCacheKeys(Object keys) {
+        if (keys instanceof Collection) {
+            Collection<Object> cacheKeys = new ArrayList<>(((Collection<?>) keys).size());
+            ((Collection<?>) keys).forEach(key -> {
+                if (key instanceof String || key instanceof Number) {
+                    cacheKeys.add(key.toString());
+                } else {
+                    cacheKeys.add(this.getCacheKey(key));
                 }
             });
             return cacheKeys;
