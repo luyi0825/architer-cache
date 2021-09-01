@@ -49,8 +49,7 @@ public class DeleteCacheOperationHandler extends CacheOperationHandler {
             for (String cacheName : cacheNames) {
                 Cache cache = chooseCache(operation, cacheName);
                 if (CacheConstants.BATCH_CACHE_KEY.equals(operation.getKey())) {
-                    Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
-                    cache.multiDelete(value);
+                    this.doBatch(expressionMetadata, cacheValue, cache);
                 } else {
                     Object cacheKey = super.parseCacheKey(expressionMetadata, operation.getKey());
                     cache.delete(cacheKey);
@@ -58,6 +57,20 @@ public class DeleteCacheOperationHandler extends CacheOperationHandler {
             }
             return null;
         });
+    }
+
+    /**
+     * 执行批量操作
+     */
+    private void doBatch(ExpressionMetadata expressionMetadata, String cacheValue, Cache cache) {
+        //清理所有
+        if (CacheConstants.CLEAR_ALL.equals(cacheValue)) {
+            cache.clearAll();
+        } else {
+            //清理部分值
+            Object value = this.expressionParser.parserExpression(expressionMetadata, cacheValue);
+            cache.multiDelete(value);
+        }
     }
 
     @Override
