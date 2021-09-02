@@ -2,12 +2,15 @@ package io.github.architers.cache;
 
 
 import io.github.architers.cache.expression.ExpressionParser;
+import io.github.architers.cache.lock.DefaultLockFailServiceImpl;
 import io.github.architers.cache.lock.LockExecute;
+import io.github.architers.cache.lock.LockFailService;
 import io.github.architers.cache.operation.CacheableOperationHandler;
 import io.github.architers.cache.operation.DeleteCacheOperationHandler;
 import io.github.architers.cache.operation.PutCacheOperationHandler;
 import io.github.architers.cache.lock.LockFactory;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +38,14 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public LockExecute lockExecute(LockFactory lockFactory) {
-        return new LockExecute(lockFactory);
+    @ConditionalOnMissingBean
+    public LockFailService lockFailService() {
+        return new DefaultLockFailServiceImpl();
+    }
+
+    @Bean
+    public LockExecute lockExecute(LockFactory lockFactory, LockFailService lockFailService) {
+        return new LockExecute(lockFactory, lockFailService);
     }
 
     @Bean
