@@ -37,4 +37,27 @@ public class LockTest {
         countDownLatch.await();
 
     }
+
+    /**
+     *
+     */
+    @Test
+    public void callBack1() throws InterruptedException {
+        int count = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(count);
+        String userName = UUID.randomUUID().toString();
+        CountDownLatch countDownLatch = new CountDownLatch(count);
+        for (int i = 0; i < count; i++) {
+            executorService.submit(() -> {
+                try {
+                    cacheLockService.test2(userName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+        countDownLatch.await();
+    }
 }

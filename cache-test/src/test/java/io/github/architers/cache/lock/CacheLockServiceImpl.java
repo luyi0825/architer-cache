@@ -14,4 +14,13 @@ public class CacheLockServiceImpl implements CacheLockService {
     public void test1(String lockKey) {
         logger.info("执行test1");
     }
+
+    @Override
+    public void test2(String lockKey) {
+
+    }
+
+    void callBack2(String userName){
+
+    }
 }
