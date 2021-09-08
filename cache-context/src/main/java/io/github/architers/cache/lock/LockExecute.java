@@ -85,7 +85,7 @@ public class LockExecute implements ApplicationContextAware {
      */
     private Object doCallBack(Locked locked, ExpressionMetadata expressionMetadata) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         String callBack = locked.callBack();
-        if (StringUtils.hasText(callBack)) {
+        if (!StringUtils.hasText(callBack)) {
             throw new IllegalArgumentException("callBack is null");
         }
         //方法名称
@@ -101,7 +101,7 @@ public class LockExecute implements ApplicationContextAware {
         }
         Method callMethod = callBackTarget.getClass().getDeclaredMethod(methodName, expressionMetadata.getTargetMethod().getParameterTypes());
         //反射回调
-        return callMethod.invoke(callMethod, expressionMetadata.getArgs());
+        return callMethod.invoke(callBackTarget, expressionMetadata.getArgs());
     }
 
     @Override
