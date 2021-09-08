@@ -216,7 +216,7 @@ public class CacheAnnotationsParser {
         if (locked != null) {
             return locked;
         }
-        Set<Annotation> annotations = AnnotatedElementUtils.getAllMergedAnnotations(annotatedElement, Collections.singleton(Locked.class));
+        Set<Annotation> annotations = AnnotatedElementUtils.findAllMergedAnnotations(annotatedElement, Collections.singleton(Locked.class));
         for (Annotation annotation : annotations) {
             if (annotation instanceof Locked) {
                 lockedCache.put(annotatedElement, (Locked) annotation);
