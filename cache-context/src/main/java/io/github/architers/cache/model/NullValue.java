@@ -12,4 +12,13 @@ import java.io.Serializable;
  */
 public class NullValue implements Serializable {
     public static final NullValue INVALID_CACHE = new NullValue();
+    private String value = "NULL";
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
