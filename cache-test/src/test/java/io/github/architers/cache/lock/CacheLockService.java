@@ -11,8 +11,8 @@ public interface CacheLockService {
         //@Cacheable(cacheName = "'test'",key = "#lockKey",expireTime = 2)
     void test1(String lockKey);
 
-    @Locked(lockName = "'CacheLockService_test1'", key = "#lockKey", tryTime = 1, callBack = "callBack2", timeUnit = TimeUnit.SECONDS, failStrategy = FailStrategy.CAll_BACK)
-    @PutCache(cacheName = "'test'",key = "#lockKey",expireTime = 2)
+    // @Locked(lockName = "'CacheLockService_test1'", key = "#lockKey", tryTime = 1, callBack = "callBack2", timeUnit = TimeUnit.SECONDS, failStrategy = FailStrategy.CAll_BACK)
+    @PutCache(cacheName = "test", key = "#lockKey", expireTime = 2)
     void test2(String lockKey);
 
 

@@ -1,6 +1,0 @@
-customize:
-  redis:
-    config:
-      singleServerConfig:
-        address: redis://192.168.3.222:6379
-        code: org.redisson.codec.JsonJacksonCodec
