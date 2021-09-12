@@ -4,7 +4,7 @@ package io.github.architers.cache;
 import io.github.architers.cache.annotation.*;
 import io.github.architers.cache.lock.LockType;
 import io.github.architers.cache.lock.Locked;
-import io.github.architers.cache.operation.*;;
+import io.github.architers.cache.operation.*;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;
@@ -35,7 +35,7 @@ public class CacheAnnotationsParser {
         CACHE_OPERATION_ANNOTATIONS.add(Caching.class);
     }
 
-    private Class<? extends Annotation> lockedAnnotation = Locked.class;
+    private final Class<? extends Annotation> lockedAnnotation = Locked.class;
 
 
     public boolean isCandidateClass(Class<?> targetClass) {
@@ -208,8 +208,10 @@ public class CacheAnnotationsParser {
     }
 
     /**
-     * @param annotatedElement
-     * @return
+     * 解析锁的主键
+     *
+     * @param annotatedElement 带注解的元素
+     * @return 锁的注解信息，无@Locked就返回空
      */
     public Locked parseLocked(AnnotatedElement annotatedElement) {
         Locked locked = lockedCache.get(annotatedElement);
@@ -227,8 +229,10 @@ public class CacheAnnotationsParser {
     }
 
     /**
-     * @param annotatedElement
-     * @return
+     * 解析锁的操作信息信息
+     *
+     * @param annotatedElement 带注解的元素
+     * @return 锁的操作信息，无@Locked返回null
      */
     public LockOperation parseLockOperation(AnnotatedElement annotatedElement) {
         Locked locked = parseLocked(annotatedElement);
