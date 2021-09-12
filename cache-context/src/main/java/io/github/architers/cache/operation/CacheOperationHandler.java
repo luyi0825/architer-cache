@@ -14,7 +14,6 @@ import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 
 import java.text.MessageFormat;
-import java.util.Collection;
 
 
 /**
@@ -64,18 +63,6 @@ public abstract class CacheOperationHandler implements Ordered {
             return key;
         }
         return expressionParser.parserExpression(expressionMetadata, key);
-    }
-
-
-    /**
-     * 得到缓存的名称
-     *
-     * @param operation          注解操作
-     * @param expressionMetadata 表达式元数据
-     * @return 解析后的缓存key
-     */
-    protected Collection<String> getCacheNames(BaseCacheOperation operation, ExpressionMetadata expressionMetadata) {
-        return expressionParser.parserFixExpressionForString(expressionMetadata, operation.getCacheName());
     }
 
     /**

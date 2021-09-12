@@ -8,9 +8,6 @@ import io.github.architers.cache.proxy.MethodReturnValueFunction;
 import io.github.architers.cache.utils.CacheUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-
-
 /**
  * 对应PutCacheOperation的handler,先调用返回结果，后put.
  * <li>默认使用方法的返回值作为缓存，如果指定了使用了缓存值就用指定的缓存值</li>
@@ -32,7 +29,6 @@ public class PutCacheOperationHandler extends CacheOperationHandler {
     @Override
     protected void execute(BaseCacheOperation operation, ExpressionMetadata expressionMetadata, MethodReturnValueFunction methodReturnValueFunction) throws Throwable {
         PutCacheOperation putCacheOperation = (PutCacheOperation) operation;
-        Collection<String> cacheNames = getCacheNames(operation, expressionMetadata);
         long expireTime = CacheUtils.getExpireTime(putCacheOperation.getExpireTime(), putCacheOperation.getRandomTime());
         String cacheValue = putCacheOperation.getCacheValue();
         Object value = methodReturnValueFunction.proceed();
@@ -44,7 +40,7 @@ public class PutCacheOperationHandler extends CacheOperationHandler {
             Object finalValue = value;
             lockExecute.execute(operation.getLocked(), expressionMetadata, () -> {
                 Object key = parseCacheKey(expressionMetadata, operation.getKey());
-                for (String cacheName : cacheNames) {
+                for (String cacheName : operation.getCacheName()) {
                     Cache cache = chooseCache(operation, cacheName);
                     if (CacheConstants.BATCH_CACHE_KEY.equals(key)) {
                         cache.multiSet(finalValue, expireTime, putCacheOperation.getExpireTimeUnit());
