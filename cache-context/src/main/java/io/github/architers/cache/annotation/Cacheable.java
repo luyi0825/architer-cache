@@ -34,8 +34,7 @@ import java.util.concurrent.TimeUnit;
 public @interface Cacheable {
 
     /**
-     * 缓存名称,
-     * <li>支持EL表达式，解析后会缓存起来，下次直接取值</li>
+     * 缓存名称(不支持EL表达式)
      */
     String[] cacheName() default "";
 
