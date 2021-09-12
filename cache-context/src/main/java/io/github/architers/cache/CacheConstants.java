@@ -20,6 +20,6 @@ public class CacheConstants {
     /**
      * 批量缓存值-清理所有
      */
-    public static final String CLEAR_ALL="clear_all";
+    public static final String CLEAR_ALL = "clear_all";
 
 }
