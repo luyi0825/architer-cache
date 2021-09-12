@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  io.github.architers.cache.redisson.RedissonConfiguration
+  io.github.architers.cache.redisson.RedissonAutoConfiguration

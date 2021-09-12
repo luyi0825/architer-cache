@@ -12,6 +12,7 @@ import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -25,21 +26,23 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
- * redisson配置类
+ * redisson自动配置类
  *
  * @author luyi
  */
 @Configuration
 @ComponentScan("io.github.architers.cache.redisson")
 @EnableConfigurationProperties(RedissonProperties.class)
-public class RedissonConfiguration {
+public class RedissonAutoConfiguration {
+    @Autowired
+    private RedissonProperties redissonProperties;
 
     @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingBean
-    public RedissonClient redissonClient(RedissonProperties redisProperties) {
-        Config config;
-        if (redisProperties != null && redisProperties.getConfig() != null) {
-            config = redisProperties.getConfig();
+    public RedissonClient redissonClient() {
+        Config config = null;
+        if (redissonProperties != null && redissonProperties.getConfig() != null) {
+            config = redissonProperties.getConfig();
         } else {
             config = new Config();
             config.setCodec(new JsonJacksonCodec());
