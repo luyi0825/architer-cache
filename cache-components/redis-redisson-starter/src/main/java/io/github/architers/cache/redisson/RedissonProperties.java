@@ -1,6 +1,5 @@
 package io.github.architers.cache.redisson;
 
-import org.redisson.config.Config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
@@ -10,18 +9,30 @@ import java.io.Serializable;
  * @author luyi
  * redisson的属性配置
  */
-@ConfigurationProperties(prefix = "customize.redisson")
+@ConfigurationProperties(prefix = "customize.redis.redisson")
 public class RedissonProperties implements Serializable {
+    /**
+     * 配置的文件
+     */
+    private String file;
     /**
      * 配置
      */
-    private Config config;
+    private RedissonConfig config;
 
-    public Config getConfig() {
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public RedissonConfig getConfig() {
         return config;
     }
 
-    public void setConfig(Config config) {
+    public void setConfig(RedissonConfig config) {
         this.config = config;
     }
 }
