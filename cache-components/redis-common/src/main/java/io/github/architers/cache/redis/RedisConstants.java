@@ -10,5 +10,5 @@ public class RedisConstants {
     /**
      * cacheName和key的分割符号
      */
-    public final static String SPLIT = ":";
+    public final static String SPLIT = "::";
 }
