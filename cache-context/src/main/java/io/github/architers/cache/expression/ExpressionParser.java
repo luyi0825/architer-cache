@@ -88,7 +88,7 @@ public class ExpressionParser {
         Expression expr = cache.get(expressionKey);
         if (expr == null) {
             expr = parser.parseExpression(expressionKey.expression);
-            cache.put(expressionKey, expr);
+            cache.putIfAbsent(expressionKey, expr);
         }
         return expr;
     }
