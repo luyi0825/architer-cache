@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public interface CacheableService {
-    @Cacheable(cacheName = "'cacheableService_oneCacheable'", key = "#userName")
+    @Cacheable(cacheName = "cacheableService_oneCacheable", key = "#userName")
     UserInfo oneCacheable(String userName);
 
     @Cacheable(cacheName = "'cacheableService_twoCacheable_key1'", key = "#userName")

@@ -5,8 +5,10 @@ import io.github.architers.cache.CacheManager;
 import io.github.architers.cache.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -26,16 +28,42 @@ public class CacheableTest {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    private RedisTemplate<Object, Object> redisTemplate;
+
+    @Autowired
+    private RedissonClient client;
+
     /**
      * 测试一个注解
      */
     @Test
     public void testOneCacheable() {
         String userId = UUID.randomUUID().toString();
-        for (int i = 0; i < 5; i++) {
+        long count=1000;
+        long time1 = System.currentTimeMillis();
+        for (int i = 0; i < count; i++) {
             UserInfo userInfo = cacheableService.oneCacheable(userId);
             Assertions.assertNotNull(userInfo);
         }
+        long time2 = System.currentTimeMillis();
+        System.out.println(time2 - time1);
+        for (int i = 0; i < count; i++) {
+            cacheManager.getSimpleCache("test").get("1");
+        }
+        long time3 = System.currentTimeMillis();
+        System.out.println(time3 - time2);
+
+        for (int i = 0; i < count; i++) {
+            redisTemplate.opsForValue().get("test");
+        }
+        long time4 = System.currentTimeMillis();
+        System.out.println(time4 - time3);
+        for (int i = 0; i < count; i++) {
+            client.getAtomicLong("test2").addAndGet(1);
+        }
+        long time5 = System.currentTimeMillis();
+        System.out.println(time5 - time4);
     }
 
     /**
