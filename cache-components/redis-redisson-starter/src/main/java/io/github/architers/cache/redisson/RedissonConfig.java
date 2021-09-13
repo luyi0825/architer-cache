@@ -21,12 +21,70 @@ public class RedissonConfig extends Config implements Serializable {
 
     private MasterSlaveServersConfig masterSlaveServersConfig;
 
+    private SentinelServersConfig sentinelServersConfig;
+
+
+    private SingleServerConfig singleServerConfig;
+
+    private ClusterServersConfig clusterServersConfig;
+
+    private ReplicatedServersConfig replicatedServersConfig;
     public RedissonConfig() {
         super();
     }
 
     public RedissonConfig(Config oldConf) {
         super(oldConf);
+    }
+
+    @Override
+    public MasterSlaveServersConfig getMasterSlaveServersConfig() {
+        return masterSlaveServersConfig;
+    }
+
+    @Override
+    public void setMasterSlaveServersConfig(MasterSlaveServersConfig masterSlaveServersConfig) {
+        this.masterSlaveServersConfig = masterSlaveServersConfig;
+    }
+
+    @Override
+    public SentinelServersConfig getSentinelServersConfig() {
+        return sentinelServersConfig;
+    }
+
+    @Override
+    public void setSentinelServersConfig(SentinelServersConfig sentinelServersConfig) {
+        this.sentinelServersConfig = sentinelServersConfig;
+    }
+
+    @Override
+    public SingleServerConfig getSingleServerConfig() {
+        return singleServerConfig;
+    }
+
+    @Override
+    public void setSingleServerConfig(SingleServerConfig singleServerConfig) {
+        this.singleServerConfig = singleServerConfig;
+    }
+
+    @Override
+    public ClusterServersConfig getClusterServersConfig() {
+        return clusterServersConfig;
+    }
+
+    @Override
+    public void setClusterServersConfig(ClusterServersConfig clusterServersConfig) {
+        this.clusterServersConfig = clusterServersConfig;
+    }
+
+    @Override
+    public ReplicatedServersConfig getReplicatedServersConfig() {
+        return replicatedServersConfig;
+    }
+
+    @Override
+    public void setReplicatedServersConfig(ReplicatedServersConfig replicatedServersConfig) {
+        this.replicatedServersConfig = replicatedServersConfig;
     }
 
     @Override
@@ -65,28 +123,8 @@ public class RedissonConfig extends Config implements Serializable {
     }
 
     @Override
-    protected ClusterServersConfig getClusterServersConfig() {
-        return super.getClusterServersConfig();
-    }
-
-    @Override
-    protected void setClusterServersConfig(ClusterServersConfig clusterServersConfig) {
-        super.setClusterServersConfig(clusterServersConfig);
-    }
-
-    @Override
     public ReplicatedServersConfig useReplicatedServers() {
         return super.useReplicatedServers();
-    }
-
-    @Override
-    protected ReplicatedServersConfig getReplicatedServersConfig() {
-        return super.getReplicatedServersConfig();
-    }
-
-    @Override
-    protected void setReplicatedServersConfig(ReplicatedServersConfig replicatedServersConfig) {
-        super.setReplicatedServersConfig(replicatedServersConfig);
     }
 
     @Override
@@ -100,38 +138,13 @@ public class RedissonConfig extends Config implements Serializable {
     }
 
     @Override
-    protected SingleServerConfig getSingleServerConfig() {
-        return super.getSingleServerConfig();
-    }
-
-    @Override
-    protected void setSingleServerConfig(SingleServerConfig singleConnectionConfig) {
-        super.setSingleServerConfig(singleConnectionConfig);
-    }
-
-    @Override
     public SentinelServersConfig useSentinelServers() {
         return super.useSentinelServers();
     }
 
     @Override
-    protected SentinelServersConfig getSentinelServersConfig() {
-        return super.getSentinelServersConfig();
-    }
-
-    @Override
-    protected void setSentinelServersConfig(SentinelServersConfig sentinelConnectionConfig) {
-        super.setSentinelServersConfig(sentinelConnectionConfig);
-    }
-
-    @Override
-    public MasterSlaveServersConfig getMasterSlaveServersConfig() {
-        return masterSlaveServersConfig;
-    }
-
-    @Override
-    public void setMasterSlaveServersConfig(MasterSlaveServersConfig masterSlaveServersConfig) {
-        this.masterSlaveServersConfig = masterSlaveServersConfig;
+    public MasterSlaveServersConfig useMasterSlaveServers() {
+        return super.useMasterSlaveServers();
     }
 
     @Override
@@ -224,6 +237,10 @@ public class RedissonConfig extends Config implements Serializable {
         return super.getAddressResolverGroupFactory();
     }
 
+    @Override
+    public String toJSON() throws IOException {
+        return super.toJSON();
+    }
 
     @Override
     public String toYAML() throws IOException {
@@ -300,28 +317,5 @@ public class RedissonConfig extends Config implements Serializable {
         return super.setConnectionListener(connectionListener);
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
