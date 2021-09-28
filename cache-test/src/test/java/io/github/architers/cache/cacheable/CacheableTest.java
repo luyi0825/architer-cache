@@ -40,7 +40,7 @@ public class CacheableTest {
     @Test
     public void testOneCacheable() {
         String userId = UUID.randomUUID().toString();
-        long count=1000;
+        long count = 10000;
         long time1 = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
             UserInfo userInfo = cacheableService.oneCacheable(userId);

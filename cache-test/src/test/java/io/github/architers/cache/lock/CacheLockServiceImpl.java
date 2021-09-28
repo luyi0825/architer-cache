@@ -11,16 +11,17 @@ public class CacheLockServiceImpl implements CacheLockService {
     private final Logger logger = LoggerFactory.getLogger(CacheLockServiceImpl.class);
 
     @Override
-    public void test1(String lockKey) {
+    public String test1(String lockKey) {
         logger.info("执行test1");
+        return lockKey;
     }
 
     @Override
     public void test2(String lockKey) {
-
+        System.out.println("执行test2");
     }
 
-    void callBack2(String userName){
+    void callBack2(String userName) {
 
     }
 }

@@ -20,13 +20,16 @@ public class LockTest {
     @Test
     public void test1() throws InterruptedException {
         int count = 100;
+        long startTime = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(count);
         String userName = UUID.randomUUID().toString();
         CountDownLatch countDownLatch = new CountDownLatch(count);
-        for (int i = 0; i < count; i++) {
+        for (int j = 0; j < count; j++) {
             executorService.submit(() -> {
                 try {
-                    cacheLockService.test1(userName);
+                    for (int i = 0; i <  100; i++) {
+                        System.out.println(cacheLockService.test1(userName));
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -34,7 +37,9 @@ public class LockTest {
                 }
             });
         }
+
         countDownLatch.await();
+        System.out.println(System.currentTimeMillis() - startTime);
 
     }
 
@@ -46,6 +51,7 @@ public class LockTest {
         int count = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(count);
         String userName = UUID.randomUUID().toString();
+        long startTime = System.currentTimeMillis();
         CountDownLatch countDownLatch = new CountDownLatch(count);
         for (int i = 0; i < count; i++) {
             executorService.submit(() -> {
@@ -59,5 +65,6 @@ public class LockTest {
             });
         }
         countDownLatch.await();
+        System.out.println(System.currentTimeMillis() - startTime);
     }
 }

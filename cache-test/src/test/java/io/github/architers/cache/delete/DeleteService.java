@@ -4,6 +4,6 @@ import io.github.architers.cache.UserInfo;
 import io.github.architers.cache.annotation.DeleteCache;
 
 public interface DeleteService {
-    @DeleteCache(cacheName = "'oneDelete'", key = "#userInfo.username")
+    @DeleteCache(cacheName = "oneDelete", key = "#userInfo.username")
     void oneDelete(UserInfo userInfo);
 }

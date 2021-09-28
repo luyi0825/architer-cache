@@ -13,8 +13,8 @@ public interface MixCacheService {
      *
      * @param userName 用户名
      */
-    @Cacheable(cacheName = "'userInfo_findByUserName'", key = "#userName")
-    @PutCache(cacheName = "'phone'", key = "#userName", cacheValue = "#result.phone")
+    @Cacheable(cacheName = "userInfo_findByUserName", key = "#userName")
+    @PutCache(cacheName = "phone", key = "#userName", cacheValue = "#result.phone")
     UserInfo findByUserName(String userName);
 
 }
