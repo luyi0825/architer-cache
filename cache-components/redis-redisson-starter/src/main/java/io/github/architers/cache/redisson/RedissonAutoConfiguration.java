@@ -24,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * redisson自动配置类
@@ -63,7 +64,7 @@ public class RedissonAutoConfiguration {
         RedisSerializer<Object> serializer = getRedisSerializer();
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(serializer);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(serializer);
         redisTemplate.setHashKeySerializer(serializer);
         redisTemplate.setHashValueSerializer(serializer);
