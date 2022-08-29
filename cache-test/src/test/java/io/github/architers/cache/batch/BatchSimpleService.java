@@ -1,9 +1,9 @@
-package io.github.architers.batch;
+package io.github.architers.cache.batch;
 
-import io.github.architers.CacheConstants;
-import io.github.architers.UserInfo;
-import io.github.architers.annotation.DeleteCache;
-import io.github.architers.annotation.PutCache;
+import io.github.architers.cache.CacheConstants;
+import io.github.architers.cache.UserInfo;
+import io.github.architers.cache.annotation.DeleteCache;
+import io.github.architers.cache.annotation.PutCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

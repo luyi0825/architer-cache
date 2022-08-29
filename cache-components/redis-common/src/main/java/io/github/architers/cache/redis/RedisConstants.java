@@ -1,4 +1,4 @@
-package io.github.architers.redis;
+package io.github.architers.cache.redis;
 
 /**
  * redis常量类

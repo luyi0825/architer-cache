@@ -1,7 +1,7 @@
-package io.github.architers.redis;
+package io.github.architers.cache.redis;
 
 
-import io.github.architers.Cache;
+import io.github.architers.cache.Cache;
 import org.springframework.util.Assert;
 
 /**

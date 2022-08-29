@@ -1,6 +1,6 @@
-package io.github.architers.cacheable;
+package io.github.architers.cache.cacheable;
 
-import io.github.architers.UserInfo;
+import io.github.architers.cache.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

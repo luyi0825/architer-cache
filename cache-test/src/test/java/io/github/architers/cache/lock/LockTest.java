@@ -1,4 +1,4 @@
-package io.github.architers.lock;
+package io.github.architers.cache.lock;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

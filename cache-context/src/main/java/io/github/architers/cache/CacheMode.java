@@ -1,4 +1,4 @@
-package io.github.architers;
+package io.github.architers.cache;
 
 /**
  * 缓存模式

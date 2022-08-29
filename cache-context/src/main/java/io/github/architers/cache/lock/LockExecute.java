@@ -1,7 +1,7 @@
-package io.github.architers.lock;
+package io.github.architers.cache.lock;
 
 
-import io.github.architers.expression.ExpressionMetadata;
+import io.github.architers.cache.expression.ExpressionMetadata;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

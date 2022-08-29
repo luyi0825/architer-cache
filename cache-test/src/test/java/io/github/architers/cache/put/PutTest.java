@@ -1,6 +1,6 @@
-package io.github.architers.put;
+package io.github.architers.cache.put;
 
-import io.github.architers.UserInfo;
+import io.github.architers.cache.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

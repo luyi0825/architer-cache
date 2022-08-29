@@ -1,4 +1,4 @@
-package io.github.architers;
+package io.github.architers.cache;
 
 import java.util.HashMap;
 import java.util.Map;

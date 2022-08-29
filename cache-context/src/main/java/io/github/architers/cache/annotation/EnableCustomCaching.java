@@ -1,7 +1,7 @@
-package io.github.architers.annotation;
+package io.github.architers.cache.annotation;
 
-import io.github.architers.CacheAdviceImportSelector;
-import io.github.architers.CacheConfiguration;
+import io.github.architers.cache.CacheAdviceImportSelector;
+import io.github.architers.cache.CacheConfiguration;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
 

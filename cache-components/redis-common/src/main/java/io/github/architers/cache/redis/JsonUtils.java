@@ -1,4 +1,4 @@
-package io.github.architers.redis;
+package io.github.architers.cache.redis;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;

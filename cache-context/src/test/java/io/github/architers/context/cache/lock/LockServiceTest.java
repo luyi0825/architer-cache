@@ -1,4 +1,4 @@
-package io.github.architers.context.cache.lock;
+package io.github.architers.cache.context.cache.lock;
 
 
 class LockServiceTest {

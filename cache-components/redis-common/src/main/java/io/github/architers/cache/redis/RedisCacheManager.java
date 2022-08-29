@@ -1,12 +1,12 @@
-package io.github.architers.redis;
+package io.github.architers.cache.redis;
 
 
-import io.github.architers.Cache;
-import io.github.architers.CacheManager;
-import io.github.architers.redis.RedisMapCache;
-import io.github.architers.redis.RedisMapValueService;
-import io.github.architers.redis.RedisSimpleCache;
-import io.github.architers.redis.RedisSimpleValueService;
+import io.github.architers.cache.Cache;
+import io.github.architers.cache.CacheManager;
+import io.github.architers.cache.redis.RedisMapCache;
+import io.github.architers.cache.redis.RedisMapValueService;
+import io.github.architers.cache.redis.RedisSimpleCache;
+import io.github.architers.cache.redis.RedisSimpleValueService;
 
 
 import java.util.concurrent.ConcurrentHashMap;

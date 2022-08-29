@@ -1,4 +1,4 @@
-package io.github.architers;
+package io.github.architers.cache;
 
 public class StringUtil {
 

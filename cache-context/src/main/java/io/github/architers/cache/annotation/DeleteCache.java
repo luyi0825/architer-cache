@@ -1,9 +1,9 @@
-package io.github.architers.annotation;
+package io.github.architers.cache.annotation;
 
 
-import io.github.architers.CacheMode;
-import io.github.architers.lock.LockEnum;
-import io.github.architers.lock.Locked;
+import io.github.architers.cache.CacheMode;
+import io.github.architers.cache.lock.LockEnum;
+import io.github.architers.cache.lock.Locked;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;

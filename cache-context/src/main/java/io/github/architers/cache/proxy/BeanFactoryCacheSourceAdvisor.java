@@ -1,4 +1,4 @@
-package io.github.architers.proxy;
+package io.github.architers.cache.proxy;
 
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.Pointcut;

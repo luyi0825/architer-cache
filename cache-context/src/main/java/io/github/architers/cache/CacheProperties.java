@@ -1,6 +1,6 @@
-package io.github.architers;
+package io.github.architers.cache;
 
-import io.github.architers.lock.LockEnum;
+import io.github.architers.cache.lock.LockEnum;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

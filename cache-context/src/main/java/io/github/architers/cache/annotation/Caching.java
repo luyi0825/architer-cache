@@ -12,9 +12,9 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface Caching {
-    io.github.architers.annotation.Cacheable[] cacheable() default {};
+    io.github.architers.cache.annotation.Cacheable[] cacheable() default {};
 
-    io.github.architers.annotation.DeleteCache[] delete() default {};
+    io.github.architers.cache.annotation.DeleteCache[] delete() default {};
 
-    io.github.architers.annotation.PutCache[] put() default {};
+    io.github.architers.cache.annotation.PutCache[] put() default {};
 }

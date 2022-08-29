@@ -1,4 +1,4 @@
-package io.github.architers.redisson;
+package io.github.architers.cache.redisson;
 
 import org.junit.jupiter.api.Test;
 

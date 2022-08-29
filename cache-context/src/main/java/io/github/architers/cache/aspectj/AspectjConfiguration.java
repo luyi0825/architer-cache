@@ -1,4 +1,4 @@
-package io.github.architers.aspectj;
+package io.github.architers.cache.aspectj;
 
 import org.springframework.context.annotation.Configuration;
 

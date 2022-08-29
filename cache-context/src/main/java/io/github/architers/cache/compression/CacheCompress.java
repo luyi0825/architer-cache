@@ -1,4 +1,4 @@
-package io.github.architers.compression;
+package io.github.architers.cache.compression;
 
 /**
  * @author luyi

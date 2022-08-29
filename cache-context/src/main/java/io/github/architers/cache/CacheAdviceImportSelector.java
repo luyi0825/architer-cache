@@ -1,9 +1,9 @@
-package io.github.architers;
+package io.github.architers.cache;
 
 
-import io.github.architers.annotation.EnableCustomCaching;
-import io.github.architers.aspectj.AspectjConfiguration;
-import io.github.architers.proxy.CacheProxyConfiguration;
+import io.github.architers.cache.annotation.EnableCustomCaching;
+import io.github.architers.cache.aspectj.AspectjConfiguration;
+import io.github.architers.cache.proxy.CacheProxyConfiguration;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;

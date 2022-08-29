@@ -1,4 +1,4 @@
-package io.github.architers.lock;
+package io.github.architers.cache.lock;
 
 /**
  * 使用的锁（用什么作为锁）

@@ -1,6 +1,6 @@
-package io.github.architers.yali;
+package io.github.architers.cache.yali;
 
-import io.github.architers.UserInfo;
+import io.github.architers.cache.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

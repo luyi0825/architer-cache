@@ -1,6 +1,6 @@
-package io.github.architers;
+package io.github.architers.cache;
 
-import io.github.architers.annotation.EnableCustomCaching;
+import io.github.architers.cache.annotation.EnableCustomCaching;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;

@@ -1,7 +1,7 @@
-package io.github.architers;
+package io.github.architers.cache;
 
-import io.github.architers.batch.CacheKey;
-import io.github.architers.batch.CacheValue;
+import io.github.architers.cache.batch.CacheKey;
+import io.github.architers.cache.batch.CacheValue;
 
 import java.io.Serializable;
 import java.util.UUID;

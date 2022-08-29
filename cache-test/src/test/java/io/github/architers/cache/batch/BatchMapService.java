@@ -1,10 +1,10 @@
-package io.github.architers.batch;
+package io.github.architers.cache.batch;
 
-import io.github.architers.CacheConstants;
-import io.github.architers.CacheMode;
-import io.github.architers.UserInfo;
-import io.github.architers.annotation.DeleteCache;
-import io.github.architers.annotation.PutCache;
+import io.github.architers.cache.CacheConstants;
+import io.github.architers.cache.CacheMode;
+import io.github.architers.cache.UserInfo;
+import io.github.architers.cache.annotation.DeleteCache;
+import io.github.architers.cache.annotation.PutCache;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

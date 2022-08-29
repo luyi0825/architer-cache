@@ -1,7 +1,7 @@
-package io.github.architers.redis;
+package io.github.architers.cache.redis;
 
 
-import io.github.architers.batch.BatchValueFactory;
+import io.github.architers.cache.batch.BatchValueFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;

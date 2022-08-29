@@ -1,6 +1,6 @@
-package io.github.architers.delete;
+package io.github.architers.cache.delete;
 
-import io.github.architers.UserInfo;
+import io.github.architers.cache.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

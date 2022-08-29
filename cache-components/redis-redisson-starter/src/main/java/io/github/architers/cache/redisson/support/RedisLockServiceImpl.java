@@ -1,7 +1,7 @@
-package io.github.architers.redisson.support;
+package io.github.architers.cache.redisson.support;
 
-import io.github.architers.lock.LockService;
-import io.github.architers.redis.RedisConstants;
+import io.github.architers.cache.lock.LockService;
+import io.github.architers.cache.redis.RedisConstants;
 import org.redisson.api.RedissonClient;
 
 import java.util.concurrent.TimeUnit;

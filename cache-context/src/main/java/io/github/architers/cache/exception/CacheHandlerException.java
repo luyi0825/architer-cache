@@ -1,4 +1,4 @@
-package io.github.architers.exception;
+package io.github.architers.cache.exception;
 
 /**
  * 缓存处理异常

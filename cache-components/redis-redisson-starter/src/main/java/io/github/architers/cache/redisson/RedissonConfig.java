@@ -1,4 +1,4 @@
-package io.github.architers.redisson;
+package io.github.architers.cache.redisson;
 
 import io.netty.channel.EventLoopGroup;
 import org.redisson.client.NettyHook;

@@ -1,7 +1,7 @@
-package io.github.architers.expression;
+package io.github.architers.cache.expression;
 
-import io.github.architers.UserInfo;
-import io.github.architers.annotation.PutCache;
+import io.github.architers.cache.UserInfo;
+import io.github.architers.cache.annotation.PutCache;
 
 public interface CacheExpressionService {
     /**

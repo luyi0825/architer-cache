@@ -1,6 +1,6 @@
-package io.github.architers.mapvalue;
+package io.github.architers.cache.mapvalue;
 
-import io.github.architers.UserInfo;
+import io.github.architers.cache.UserInfo;
 import org.springframework.stereotype.Service;
 
 @Service

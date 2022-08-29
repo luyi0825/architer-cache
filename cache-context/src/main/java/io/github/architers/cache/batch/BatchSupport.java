@@ -1,4 +1,4 @@
-package io.github.architers.batch;
+package io.github.architers.cache.batch;
 
 /**
  * @author luyi

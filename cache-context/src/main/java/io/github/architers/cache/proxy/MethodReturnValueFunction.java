@@ -1,4 +1,4 @@
-package io.github.architers.proxy;
+package io.github.architers.cache.proxy;
 
 /**
  * 方法返回值功能函数：控制返回值和多次调用

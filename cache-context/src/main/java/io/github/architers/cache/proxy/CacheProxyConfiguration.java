@@ -1,8 +1,8 @@
-package io.github.architers.proxy;
+package io.github.architers.cache.proxy;
 
 
-import io.github.architers.CacheAnnotationsParser;
-import io.github.architers.operation.CacheOperationHandler;
+import io.github.architers.cache.CacheAnnotationsParser;
+import io.github.architers.cache.operation.CacheOperationHandler;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
