@@ -1,12 +1,12 @@
 
-package io.github.architers.cache.redisson;
+package io.github.architers.redisson;
 
 
-import io.github.architers.cache.lock.LockService;
-import io.github.architers.cache.redis.RedisMapValueService;
-import io.github.architers.cache.redis.RedisSimpleValueService;
-import io.github.architers.cache.redis.RedisCacheManager;
-import io.github.architers.cache.redisson.support.RedisLockServiceImpl;
+import io.github.architers.lock.LockService;
+import io.github.architers.redis.RedisMapValueService;
+import io.github.architers.redis.RedisSimpleValueService;
+import io.github.architers.redis.RedisCacheManager;
+import io.github.architers.redisson.support.RedisLockServiceImpl;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
@@ -32,7 +32,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author luyi
  */
 @Configuration
-@ComponentScan("io.github.architers.cache.redisson")
+@ComponentScan("io.github.architers.redisson")
 @EnableConfigurationProperties(RedissonProperties.class)
 public class RedissonAutoConfiguration {
     @Autowired

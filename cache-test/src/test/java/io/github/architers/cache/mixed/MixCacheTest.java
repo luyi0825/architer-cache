@@ -1,6 +1,6 @@
-package io.github.architers.cache.mixed;
+package io.github.architers.mixed;
 
-import io.github.architers.cache.UserInfo;
+import io.github.architers.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

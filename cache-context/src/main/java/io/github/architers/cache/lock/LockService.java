@@ -1,4 +1,4 @@
-package io.github.architers.cache.lock;
+package io.github.architers.lock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

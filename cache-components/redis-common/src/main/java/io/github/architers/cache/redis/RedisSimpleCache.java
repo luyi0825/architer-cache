@@ -1,9 +1,9 @@
-package io.github.architers.cache.redis;
+package io.github.architers.redis;
 
 
-import io.github.architers.cache.CacheConstants;
-import io.github.architers.cache.batch.BatchValueFactory;
-import io.github.architers.cache.batch.CacheField;
+import io.github.architers.CacheConstants;
+import io.github.architers.batch.BatchValueFactory;
+import io.github.architers.batch.CacheField;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;

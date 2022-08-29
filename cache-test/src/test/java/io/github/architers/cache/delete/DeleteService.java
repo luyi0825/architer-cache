@@ -1,7 +1,7 @@
-package io.github.architers.cache.delete;
+package io.github.architers.delete;
 
-import io.github.architers.cache.UserInfo;
-import io.github.architers.cache.annotation.DeleteCache;
+import io.github.architers.UserInfo;
+import io.github.architers.annotation.DeleteCache;
 
 public interface DeleteService {
     @DeleteCache(cacheName = "oneDelete", key = "#userInfo.username")

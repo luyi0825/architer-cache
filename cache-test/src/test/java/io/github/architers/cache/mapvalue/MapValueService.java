@@ -1,10 +1,10 @@
-package io.github.architers.cache.mapvalue;
+package io.github.architers.mapvalue;
 
 
-import io.github.architers.cache.CacheMode;
-import io.github.architers.cache.UserInfo;
-import io.github.architers.cache.annotation.Cacheable;
-import io.github.architers.cache.annotation.DeleteCache;
+import io.github.architers.CacheMode;
+import io.github.architers.UserInfo;
+import io.github.architers.annotation.Cacheable;
+import io.github.architers.annotation.DeleteCache;
 
 public interface MapValueService {
 

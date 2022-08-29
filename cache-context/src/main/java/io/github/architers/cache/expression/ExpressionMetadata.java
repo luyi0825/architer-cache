@@ -1,4 +1,4 @@
-package io.github.architers.cache.expression;
+package io.github.architers.expression;
 
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;

@@ -1,6 +1,6 @@
-package io.github.architers.cache.batch;
+package io.github.architers.batch;
 
-import io.github.architers.cache.annotation.Cacheables;
+import io.github.architers.annotation.Cacheables;
 
 import java.lang.annotation.*;
 

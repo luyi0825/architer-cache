@@ -1,10 +1,10 @@
-package io.github.architers.cache.cacheable;
+package io.github.architers.cacheable;
 
 
-import io.github.architers.cache.UserInfo;
-import io.github.architers.cache.annotation.Cacheable;
-import io.github.architers.cache.lock.LockEnum;
-import io.github.architers.cache.lock.Locked;
+import io.github.architers.UserInfo;
+import io.github.architers.annotation.Cacheable;
+import io.github.architers.lock.LockEnum;
+import io.github.architers.lock.Locked;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;

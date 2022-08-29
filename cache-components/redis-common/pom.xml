@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>cache-components</artifactId>
-        <groupId>io.github.architers.cache</groupId>
-        <version>1.0.0</version>
+        <groupId>io.github.architers</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>redis-common</artifactId>
     <name>redis-common</name>
@@ -22,7 +22,7 @@
             <artifactId>spring-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.architers.cache</groupId>
+            <groupId>io.github.architers</groupId>
             <artifactId>cache-context</artifactId>
             <version>${project.version}</version>
         </dependency>

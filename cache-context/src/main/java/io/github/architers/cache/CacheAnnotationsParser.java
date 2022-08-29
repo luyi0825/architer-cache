@@ -1,10 +1,10 @@
-package io.github.architers.cache;
+package io.github.architers;
 
 
-import io.github.architers.cache.annotation.*;
-import io.github.architers.cache.lock.LockType;
-import io.github.architers.cache.lock.Locked;
-import io.github.architers.cache.operation.*;
+import io.github.architers.annotation.*;
+import io.github.architers.lock.LockType;
+import io.github.architers.lock.Locked;
+import io.github.architers.operation.*;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;

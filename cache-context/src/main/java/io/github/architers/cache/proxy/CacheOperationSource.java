@@ -1,7 +1,7 @@
-package io.github.architers.cache.proxy;
+package io.github.architers.proxy;
 
 
-import io.github.architers.cache.operation.Operation;
+import io.github.architers.operation.Operation;
 import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;

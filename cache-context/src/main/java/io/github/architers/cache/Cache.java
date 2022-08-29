@@ -1,4 +1,4 @@
-package io.github.architers.cache;
+package io.github.architers;
 
 import java.util.Collection;
 import java.util.Set;

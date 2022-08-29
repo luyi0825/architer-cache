@@ -1,10 +1,10 @@
-package io.github.architers.cache.operation;
+package io.github.architers.operation;
 
 
-import io.github.architers.cache.Cache;
-import io.github.architers.cache.CacheConstants;
-import io.github.architers.cache.expression.ExpressionMetadata;
-import io.github.architers.cache.proxy.MethodReturnValueFunction;
+import io.github.architers.Cache;
+import io.github.architers.CacheConstants;
+import io.github.architers.expression.ExpressionMetadata;
+import io.github.architers.proxy.MethodReturnValueFunction;
 
 import java.util.Collection;
 

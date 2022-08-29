@@ -1,7 +1,7 @@
-package io.github.architers.cache.utils;
+package io.github.architers.utils;
 
 
-import io.github.architers.cache.CacheConstants;
+import io.github.architers.CacheConstants;
 
 /**
  * @author luyi

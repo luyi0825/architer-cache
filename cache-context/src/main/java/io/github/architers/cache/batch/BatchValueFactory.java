@@ -1,6 +1,6 @@
-package io.github.architers.cache.batch;
+package io.github.architers.batch;
 
-import io.github.architers.cache.exception.CacheAnnotationIllegalException;
+import io.github.architers.exception.CacheAnnotationIllegalException;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 

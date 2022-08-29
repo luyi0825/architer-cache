@@ -1,8 +1,8 @@
-//package io.github.architers.cache.redisson.support;
+//package io.github.architers.redisson.support;
 //
 //
-//import io.github.architers.cache.redis.JsonUtils;
-//import io.github.architers.cache.redis.RedisCache;
+//import io.github.architers.redis.JsonUtils;
+//import io.github.architers.redis.RedisCache;
 //import org.redisson.api.RedissonClient;
 //
 //import java.util.*;

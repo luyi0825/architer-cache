@@ -1,8 +1,8 @@
-package io.github.architers.cache.cacheable;
+package io.github.architers.cacheable;
 
 
-import io.github.architers.cache.CacheManager;
-import io.github.architers.cache.UserInfo;
+import io.github.architers.CacheManager;
+import io.github.architers.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RedissonClient;

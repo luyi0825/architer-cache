@@ -1,7 +1,7 @@
 package com.architectrue.lock.zk;
 
 
-import io.github.architers.cache.lock.LockService;
+import io.github.architers.lock.LockService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

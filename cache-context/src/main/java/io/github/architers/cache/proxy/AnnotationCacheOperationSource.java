@@ -1,10 +1,10 @@
-package io.github.architers.cache.proxy;
+package io.github.architers.proxy;
 
 
-import io.github.architers.cache.CacheAnnotationsParser;
-import io.github.architers.cache.operation.BaseCacheOperation;
-import io.github.architers.cache.operation.LockOperation;
-import io.github.architers.cache.operation.Operation;
+import io.github.architers.CacheAnnotationsParser;
+import io.github.architers.operation.BaseCacheOperation;
+import io.github.architers.operation.LockOperation;
+import io.github.architers.operation.Operation;
 import org.springframework.cache.interceptor.CacheOperation;
 import org.springframework.util.CollectionUtils;
 

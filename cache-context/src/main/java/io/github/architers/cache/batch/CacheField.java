@@ -1,4 +1,4 @@
-package io.github.architers.cache.batch;
+package io.github.architers.batch;
 
 /**
  * 批量缓存的缓存字段

@@ -1,4 +1,4 @@
-package io.github.architers.cache.lock;
+package io.github.architers.lock;
 
 /**
  * 获取锁失败，

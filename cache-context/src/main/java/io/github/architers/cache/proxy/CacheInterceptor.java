@@ -1,16 +1,16 @@
-package io.github.architers.cache.proxy;
+package io.github.architers.proxy;
 
 
-import io.github.architers.cache.CacheAnnotationsParser;
-import io.github.architers.cache.CacheConstants;
-import io.github.architers.cache.expression.ExpressionEvaluationContext;
-import io.github.architers.cache.expression.ExpressionMetadata;
-import io.github.architers.cache.expression.ExpressionParser;
-import io.github.architers.cache.lock.LockExecute;
-import io.github.architers.cache.lock.Locked;
-import io.github.architers.cache.model.NullValue;
-import io.github.architers.cache.operation.BaseCacheOperation;
-import io.github.architers.cache.operation.CacheOperationHandler;
+import io.github.architers.CacheAnnotationsParser;
+import io.github.architers.CacheConstants;
+import io.github.architers.expression.ExpressionEvaluationContext;
+import io.github.architers.expression.ExpressionMetadata;
+import io.github.architers.expression.ExpressionParser;
+import io.github.architers.lock.LockExecute;
+import io.github.architers.lock.Locked;
+import io.github.architers.model.NullValue;
+import io.github.architers.operation.BaseCacheOperation;
+import io.github.architers.operation.CacheOperationHandler;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;

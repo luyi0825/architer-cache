@@ -4,14 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.architers.cache</groupId>
+        <groupId>io.github.architers</groupId>
         <artifactId>cache-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>cache-context</artifactId>
     <name>cache-context</name>
     <description>cache-context</description>
     <packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>

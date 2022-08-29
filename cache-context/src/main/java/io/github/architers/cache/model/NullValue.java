@@ -1,4 +1,4 @@
-package io.github.architers.cache.model;
+package io.github.architers.model;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
-package io.github.architers.cache.mapvalue;
+package io.github.architers.mapvalue;
 
 
-import io.github.architers.cache.UserInfo;
+import io.github.architers.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

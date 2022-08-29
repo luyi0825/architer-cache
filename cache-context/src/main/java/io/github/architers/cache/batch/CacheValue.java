@@ -1,4 +1,4 @@
-package io.github.architers.cache.batch;
+package io.github.architers.batch;
 
 import java.lang.annotation.*;
 

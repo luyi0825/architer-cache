@@ -1,4 +1,4 @@
-package io.github.architers.cache.redis;
+package io.github.architers.redis;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;

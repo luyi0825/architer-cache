@@ -1,14 +1,14 @@
-package io.github.architers.cache;
+package io.github.architers;
 
 
-import io.github.architers.cache.expression.ExpressionParser;
-import io.github.architers.cache.lock.DefaultLockFailServiceImpl;
-import io.github.architers.cache.lock.LockExecute;
-import io.github.architers.cache.lock.LockFailService;
-import io.github.architers.cache.operation.CacheableOperationHandler;
-import io.github.architers.cache.operation.DeleteCacheOperationHandler;
-import io.github.architers.cache.operation.PutCacheOperationHandler;
-import io.github.architers.cache.lock.LockFactory;
+import io.github.architers.expression.ExpressionParser;
+import io.github.architers.lock.DefaultLockFailServiceImpl;
+import io.github.architers.lock.LockExecute;
+import io.github.architers.lock.LockFailService;
+import io.github.architers.operation.CacheableOperationHandler;
+import io.github.architers.operation.DeleteCacheOperationHandler;
+import io.github.architers.operation.PutCacheOperationHandler;
+import io.github.architers.lock.LockFactory;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
